@@ -1,0 +1,9 @@
+.container_form_register {
+  width: 100%;
+  max-width: 520px;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
