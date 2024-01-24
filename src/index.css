@@ -3,8 +3,11 @@
 :root {
   --main-font: "Roboto", sans-serif;
   --border: 1px solid rgba(0, 0, 0, 0.23);
+  --bg-modal: rgba(0, 0, 0, 0.2);
   --white: #fff;
   --orange: #f52;
+  --neutral-color-opacity: #0b0c0d83;
+  --neutral-color-opacity-70: rgba(15, 15, 15, 0.65);
   --neutral-color-strong: #303133;
   --neutral-color: #515255;
   --neutral-color-weak: #818388;
