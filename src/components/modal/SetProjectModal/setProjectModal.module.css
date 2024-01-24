@@ -1,0 +1,29 @@
+.container_set_project_modal {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--bg-modal);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal {
+  background-color: var(--white);
+  width: 70vw;
+  min-height: 300px;
+  animation: animationModal 0.5s ease-out;
+}
+
+@keyframes animationModal {
+  0% {
+    opacity: 0;
+    transform: translateY(-25px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
