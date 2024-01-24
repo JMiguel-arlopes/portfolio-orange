@@ -1,0 +1,38 @@
+.container_home {
+  padding: 2rem;
+}
+
+.content_profile {
+  padding: 4rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container_home > h3 {
+  color: var(--neutral-color-opacity-70);
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.25px;
+  margin-bottom: 16px;
+}
+
+.content_projects {
+  max-width: 2500px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.skeleton {
+  border-radius: 4px;
+  width: 450px;
+  height: 258px;
+  flex-shrink: 0;
+  background-color: cyan;
+}
