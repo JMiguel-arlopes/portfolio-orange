@@ -16,7 +16,10 @@ export default function Header() {
        </div>
 
        <div className={styles.perfil}>
-            <img className={styles.perfilImg} src={Perfil} />
+            <div className={styles.subnav}>
+              <img className={styles.perfilImg} src={Perfil}/>
+              <Link className={styles.sair} to={'/login'}>Sair</Link>
+            </div> 
             <img src={Icon} />
        </div>
     </div>

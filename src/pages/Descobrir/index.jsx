@@ -1,7 +1,5 @@
 import styles from "./descobrir.module.css";
 import { useState } from "react";
-
-import CardProfile from "../../components/CardProfile";
 import Header from "../../components/Header";
 import InputTag from "../../components/InputTag";
 import FirstProjectCard from "../../components/FirstProjectCard";

@@ -4,24 +4,17 @@
     width: 100%;
     height: 73px;
     padding: 16px 30px;
+    justify-content: space-between;
     
-}
-
-
-.perfilImg {
-    width: 40px;
-    height: 40px;
-    border-radius: 100%;
-
 }
 
 .menuLogo {
     display: flex;
-    width: 712px;
+    
 
 }
+
 .menu {
-    
     display: flex;
     align-items: center;
     width: auto;
@@ -30,19 +23,62 @@
     
 }
 
-
 .links {
     font-size: 20px;
     font-style: normal;
     font-weight: 500;
-    line-height: 20px; /* 100% */
+    line-height: 20px; 
     width: 130px;
     text-decoration: none;
     color: white;
 }
 
-
 .perfil {
-    width: calc(100% - 712px) ;
+    
     text-align: right;
+    display: flex;
+   justify-content: flex-end;
 }
+
+.perfilImg {
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+
+}
+
+.subnav {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 50px;
+    height: 50px;
+    
+    align-items: center;
+}
+
+.sair {
+    text-decoration: none;
+    color: var(--Color-Brand-Primria-Primary-90, #224);
+    background-color: rgb(255, 255, 255);
+    padding: 8px;
+    border-radius: 40px;
+    display: none;
+    text-align: center;
+    width: 100px;
+    border:var(--border); 
+  
+}
+
+.sair:hover {
+    background-color: #FF5522;
+    color: white;
+}
+
+.subnav:hover .sair{
+    display: inline;
+}
+
+
+
+
