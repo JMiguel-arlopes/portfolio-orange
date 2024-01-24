@@ -1,7 +1,6 @@
-import styles from "./inputsemailpassword.module.css";
 import Input from "../Input";
 
-export default function InputsEmailPassword() {
+export default function InputsEmailPassword({ handleOnChange, user }) {
   return (
     <>
       <Input
@@ -9,6 +8,8 @@ export default function InputsEmailPassword() {
         name="email"
         type="email"
         placeholder="John@gmail.com"
+        handleOnChange={handleOnChange}
+        value={user.email ? user.email : ""}
       />
 
       <Input
@@ -16,6 +17,8 @@ export default function InputsEmailPassword() {
         name="password"
         type="password"
         placeholder="3ygyg37ry74hsa"
+        handleOnChange={handleOnChange}
+        value={user.password ? user.password : ""}
       />
     </>
   );
