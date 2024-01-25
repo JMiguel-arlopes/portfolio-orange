@@ -14,31 +14,41 @@ import img_project from "../../assets/img_projeto.png";
 import img_profile from "../../assets/perfil.png";
 
 export default function Home() {
+  const currentUser = db.users[0];
+  const projectsDone = currentUser.projects;
+  const [projectsUser, setProjectsUser] = useState(projectsDone);
   const [modalAddProject, setModalAddProject] = useState(false);
 
-  const changeTextTag = (e) => {
-    console.log(e.target.value);
+  const filterProjectsByTag = (e) => {
+    const word = e.target.value.toLowerCase();
+
+    const updateProjects = projectsDone.filter((project) => {
+      const tagsProject = project.tags.map((tag) => tag.toLowerCase());
+      return tagsProject.some((tag) => tag.includes(word));
+    });
+
+    setProjectsUser(updateProjects);
   };
 
   const toggleAddProjectModal = () => {
     setModalAddProject(!modalAddProject);
   };
 
-  const currentUser = db.users[0];
-  const projectsDone = currentUser.projects;
-
   return (
-    <div>
+    <>
       <Header />
       <section className={styles.container_home}>
         <div className={styles.content_profile}>
-          <CardProfile toggleModal={toggleAddProjectModal} />
+          <CardProfile
+            name={currentUser.name}
+            toggleModal={toggleAddProjectModal}
+          />
         </div>
         <h3>Meus Projetos</h3>
-        <InputTag handleOnChange={changeTextTag} />
+        <InputTag handleOnChange={filterProjectsByTag} />
         <ContainerProjects>
           {projectsDone.length > 0 ? (
-            projectsDone.map((project) => {
+            projectsUser.map((project) => {
               return (
                 <ProjectCard
                   name={currentUser.name}
@@ -56,6 +66,6 @@ export default function Home() {
       {modalAddProject && (
         <SetProjectModal toggleModal={toggleAddProjectModal} />
       )}
-    </div>
+    </>
   );
 }
