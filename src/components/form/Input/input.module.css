@@ -9,13 +9,28 @@
 }
 
 .input_container label {
-  background-color: var(--white);
   color: var(--neutral-color);
+  /* opacity: 0.95; */
+  font-feature-settings: "clig" off, "liga" off;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: 0.15px;
+  position: absolute;
+  top: 50%;
+  left: 12px;
+  transform: translate(0, -50%);
+  transition: 0.3s;
+}
 
+.input_container .up {
+  background-color: var(--white);
   font-size: 12px;
-  letter-spacing: 0.4px;
-  display: block;
+  opacity: 1;
   padding: 0 5px;
+  letter-spacing: 0.4px;
+  line-height: 16px;
   position: absolute;
   top: 0;
   left: 0;
@@ -23,9 +38,15 @@
 }
 
 .input_container input {
-  color: var(--neutral-color-strong);
+  color: var(--text-primary, rgba(0, 0, 0, 0.87));
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: 0.15px;
   padding: 16px 0;
   width: 100%;
+  font-feature-settings: "clig" off, "liga" off;
+  font-style: normal;
   border: none;
   outline: none;
 }
