@@ -1,5 +1,5 @@
 import styles from "./firstprojectcard.module.css";
-import img_collections from "../../assets/collections.svg";
+import img_collections from "../../../assets/collections.svg";
 
 export default function FirstProjectCard({ toggleModal }) {
   return (

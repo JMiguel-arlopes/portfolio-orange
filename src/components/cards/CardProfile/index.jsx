@@ -1,5 +1,5 @@
 import styles from "./cardprofile.module.css";
-import img_profile from "../../assets/perfil.png";
+import img_profile from "../../../assets/perfil.png";
 
 export default function CardProfile({ toggleModal, img, name, nationality }) {
   return (
@@ -9,7 +9,7 @@ export default function CardProfile({ toggleModal, img, name, nationality }) {
       </div>
       <div className={styles.content_information_profile}>
         <div>
-          <h2>Camila Soares</h2>
+          <h2>{name}</h2>
           <h4>Brasil</h4>
         </div>
         <button onClick={toggleModal}>Adicionar Projeto</button>
