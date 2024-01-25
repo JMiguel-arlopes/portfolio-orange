@@ -6,7 +6,7 @@ import reportWebVitals from "./reportWebVitals";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import Home from "./pages/Home"
+import Home from "./pages/Home";
 import Descobrir from "./pages/Descobrir";
 
 const router = createBrowserRouter([
@@ -16,7 +16,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Login/> ,
+        element: <Login />,
       },
       {
         path: "/login",
@@ -31,7 +31,7 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "/descobrir",
+        path: "/explore",
         element: <Descobrir />,
       },
     ],
