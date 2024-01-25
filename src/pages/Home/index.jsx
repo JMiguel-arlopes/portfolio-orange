@@ -1,17 +1,17 @@
 import styles from "./home.module.css";
 import { useState } from "react";
 
-import CardProfile from "../../components/CardProfile";
-import Header from "../../components/Header";
-import InputTag from "../../components/InputTag";
-import FirstProjectCard from "../../components/FirstProjectCard";
+import CardProfile from "../../components/cards/CardProfile";
+import Header from "../../components/layoult/Header";
+import FirstProjectCard from "../../components/cards/FirstProjectCard";
 import SetProjectModal from "../../components/modal/SetProjectModal";
-import ContainerProjects from "../../components/ContainerProjects";
-import ProjectCard from "../../components/ProjectCard";
+import ContainerProjects from "../../components/layoult/ContainerProjects";
+import ProjectCard from "../../components/cards/ProjectCard";
 
 import db from "../../db.json";
 import img_project from "../../assets/img_projeto.png";
 import img_profile from "../../assets/perfil.png";
+import Input from "../../components/form/Input";
 
 export default function Home() {
   const currentUser = db.users[0];
@@ -45,7 +45,13 @@ export default function Home() {
           />
         </div>
         <h3>Meus Projetos</h3>
-        <InputTag handleOnChange={filterProjectsByTag} />
+        <Input
+          text="Buscar tags"
+          name="tag"
+          type="text"
+          handleOnChange={filterProjectsByTag}
+          required={false}
+        />
         <ContainerProjects>
           {projectsDone.length > 0 ? (
             projectsUser.map((project) => {
