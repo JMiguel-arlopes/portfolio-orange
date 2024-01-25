@@ -6,11 +6,11 @@
   border-radius: 4px;
   position: relative;
   margin-bottom: 1rem;
+  max-width: 520px;
 }
 
 .input_container label {
   color: var(--neutral-color);
-  /* opacity: 0.95; */
   font-feature-settings: "clig" off, "liga" off;
   font-size: 16px;
   font-style: normal;

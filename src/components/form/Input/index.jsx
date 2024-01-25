@@ -1,7 +1,14 @@
 import { useState } from "react";
 import styles from "./input.module.css";
 
-export default function Input({ text, name, type, handleOnChange, value }) {
+export default function Input({
+  text,
+  name,
+  type,
+  handleOnChange,
+  value,
+  required = true,
+}) {
   const [isFocus, setFocus] = useState(false);
 
   const handleInputFocus = () => {
@@ -14,7 +21,7 @@ export default function Input({ text, name, type, handleOnChange, value }) {
         {text}
       </label>
       <input
-        required="true"
+        required={required}
         type={type}
         id={name}
         name={name}
