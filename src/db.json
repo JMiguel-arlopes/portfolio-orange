@@ -5,13 +5,13 @@
       "projects": [
         {
           "title": "Pokedéx",
-          "tags": ["gamer", "pokemon", "anime"],
+          "tags": ["Gamer", "Pokemon", "Anime"],
           "link": "www.com.br",
           "description": "lorem ipum hahfeaifjsi jasfhuaihf sfafifj sufiea blcsnsu"
         },
         {
           "title": "Loja de PC",
-          "tags": ["gamer", "internet", "mouse"],
+          "tags": ["Tech", "Internet", "Mouse"],
           "link": "www.com.br",
           "description": "lorem ipum hahfeaifjsi jasfhuaihf sfafifj sufiea blcsnsu"
         },
