@@ -1,0 +1,44 @@
+.container_home {
+  padding: 2rem;
+}
+
+.text > h1 {
+  color: var(--Color-Brand-Primria-Primary-90, #224);
+  text-align: center;
+  font-size: 34px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 34px;
+  letter-spacing: 0.25px;
+  width: 744px;
+  margin: auto;
+  padding: 76px 0;
+}
+
+.container_home > h3 {
+  color: var(--neutral-color-opacity-70);
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.25px;
+  margin-bottom: 16px;
+}
+
+.content_projects {
+  max-width: 2500px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.skeleton {
+  border-radius: 4px;
+  width: 450px;
+  height: 258px;
+  flex-shrink: 0;
+  background-color: cyan;
+}
