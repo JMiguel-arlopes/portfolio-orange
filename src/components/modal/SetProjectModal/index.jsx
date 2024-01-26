@@ -1,4 +1,6 @@
 import styles from "./setProjectModal.module.css";
+import Collections from "../../../assets/collections.svg"
+import FormNewProject from "../../form/FormNewProject"
 
 export default function SetProjectModal({ toggleModal }) {
   const outModal = "outmodal";
@@ -21,11 +23,15 @@ export default function SetProjectModal({ toggleModal }) {
         <div className={styles.container}>
           <div className={styles.image}>
             <p>Selecione o conteúdo que você deseja fazer upload</p>
-            <button><input type="file" />Compartilhe seu talento com milhares de pessoas</button>
+            <div class={styles.uploudImage} >
+                <img src={Collections} />
+                <label for="upload">Compartilhe seu talento com milhares de pessoas</label>
+                <input type="file" id="upload" name="upload" />
+            </div>
           </div>
 
           <div className={styles.form}>
-            <span>FORMULARIO AQUI</span>
+              <FormNewProject/>
           </div>  
         </div>
 
@@ -33,7 +39,11 @@ export default function SetProjectModal({ toggleModal }) {
 
         <div className={styles.buttons}>
           <button className={styles.salvar}>Salvar</button>
-          <button className={styles.cancelar}>Cancelar</button>
+          <button 
+          id={outModal}
+          onClick={disabledModal}
+          className={styles.cancelar}>Cancelar</button>
+          
         </div>
       </div>
     </section>

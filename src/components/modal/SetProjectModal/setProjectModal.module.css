@@ -15,18 +15,22 @@
   width: 890px;
   height: 522px;
   animation: animationModal 0.5s ease-out;
-  
+
   padding: 24px 32px;
-  
 }
 
 .modal > h1 {
   margin-bottom: 24px;
+  color: var(--Neutral-Colors-Neutral-110, #515255);
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
 }
 
 .container {
   display: flex;
-  margin-bottom: 16px;
+ 
 }
 
 .image {
@@ -37,37 +41,65 @@
   justify-content: space-between;
 }
 
-
-.image button {
-  width: 389px;
-  height: 304px;
-  
-}
-.image input {
+input[type="file"] {
   display: none;
 }
 
+.image > p {
+  color: var(--Neutral-Colors-Neutral-110, #515255);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 16px;
+  letter-spacing: 0.15px;
+}
+
+.uploudImage {
+  width: 389px;
+  height: 304px;
+  background: var(--Neutral-Colors-Neutral-70, #e6e9f2);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+}
+
+.uploudImage img {
+  width: 38.333px;
+  height: 38.333px;
+  flex-shrink: 0;
+}
+
+.uploudImage label {
+  width: 270px;
+  color: var(--Neutral-Colors-Neutral-120, #303133);
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 14px;
+  letter-spacing: 0.25px;
+  
+  cursor: pointer;
+  
+}
 
 
-
-
-.buttons{
+.buttons {
+  display: flex;
+  gap: 16px;
   margin-top: 16px;
   display: flex;
-  
   font-size: 15px;
-  
-  
 }
 
 .buttons button {
   padding: 8px 22px;
-
 }
 
 .salvar {
   border-radius: var(--borderRadius, 4px);
-  background: #F52;
+  background: #f52;
   color: white;
   border: 0;
 }
@@ -77,20 +109,17 @@
   border-radius: var(--borderRadius, 4px);
   background: var(--action-disabledBackground, rgba(0, 0, 0, 0.12));
   border: 0;
+  cursor: pointer;
 }
 
-
-.form {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  
-  width: 413px;
-  height: 336px;
-  
+.visualizar {
+  color: var(--Neutral-Colors-Neutral-110, #515255);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 16px; 
+  letter-spacing: 0.15px;
 }
-
-
 
 @keyframes animationModal {
   0% {
