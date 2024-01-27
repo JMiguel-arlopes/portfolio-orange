@@ -48,20 +48,13 @@
 @media (max-width: 768px) {
   .container_form_login {
     width: 312px;
-
   }
-  
+
   .container_form_login > h3 {
     font-size: 16px;
   }
 
-  .sign_up{
+  .sign_up {
     margin-top: 8px;
   }
-
-
 }
-
-
-
-

@@ -7,3 +7,11 @@
   align-items: center;
   justify-content: center;
 }
+
+
+@media (max-width: 768px) {
+  .container_form_register {
+    width: 312px;
+
+  }
+}

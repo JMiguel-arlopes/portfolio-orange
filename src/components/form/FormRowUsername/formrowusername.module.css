@@ -13,3 +13,9 @@
 .row_username > div:last-child {
   margin-left: 5px;
 }
+
+@media (max-width: 768px) {
+  .row_username {
+    flex-direction: column;
+  }
+}
