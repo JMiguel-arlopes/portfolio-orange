@@ -72,6 +72,9 @@
   font-weight: 400;
   line-height: 16px;
   letter-spacing: 0.15px;
+  border: 0;
+  outline: 0;
+  background-color: transparent;
 }
 
 @keyframes animationModal {
