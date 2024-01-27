@@ -1,68 +1,46 @@
-
 import { useState } from "react";
-import styles from "./formnewproject.module.css"
+import styles from "./formnewproject.module.css";
+import Input from "../Input";
 
-const FormNewProject = () => {
-    const [formData, setFormData] = useState({
-      titulo: '',
-      tag: '',
-      link: '',
-      descricao: ''
-    });
-  
-    const handleChange = (e) => {
-      const { name, value } = e.target;
-      setFormData({ ...formData, [name]: value });
-    };
-  
-    const handleSubmit = (e) => {
-      e.preventDefault();
-      
-      console.log('Dados do formulário:', formData);
-    };
-  
-    return (
-      <div className={styles.form}>
-        <form onSubmit={handleSubmit}>
-          
-          <input
-            type="text"
-            placeholder ="Título"
-            value={formData.titulo}
-            onChange={handleChange}
-            required
-          />
-  
-         
-          <input
-            type="text"
-            placeholder ="Tags"
-            value={formData.tag}
-            onChange={handleChange}
-            required
-          />
-  
-          
-          <input
-            type="Link"
-            placeholder ="Email adress"
-            value={formData.link}
-            onChange={handleChange}
-            required
-          />
-  
-          
-          <textarea
-            placeholder ="Descrição"
-            value={formData.descricao}
-            onChange={handleChange}
-            rows="4"
-            required
-          ></textarea>
-  
-        </form>
-      </div>
-    );
-  };
-  
-  export default FormNewProject;
+const FormNewProject = ({ handleChange, formData }) => {
+  return (
+    <div className={styles.form}>
+      <Input
+        text="Título"
+        name="title"
+        value={formData.title}
+        handleOnChange={handleChange}
+        required
+      />
+
+      <Input
+        text="tags"
+        name="tags"
+        type="text"
+        value={formData.tags}
+        handleOnChange={handleChange}
+        required
+      />
+
+      <Input
+        text="Link"
+        name="link"
+        type="text"
+        value={formData.link}
+        handleOnChange={handleChange}
+        required
+      />
+
+      <textarea
+        placeholder="Descrição"
+        name="description"
+        value={formData.description}
+        onChange={handleChange}
+        rows="4"
+        required
+      ></textarea>
+    </div>
+  );
+};
+
+export default FormNewProject;
