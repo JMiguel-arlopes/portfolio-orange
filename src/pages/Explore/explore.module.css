@@ -42,3 +42,23 @@
   flex-shrink: 0;
   background-color: cyan;
 }
+
+
+@media (max-width: 768px) {
+  .container_home .text > h1 {
+    width: 312px;
+    font-size: 24px;
+    margin: 0;
+    line-height: 24px;
+    padding: 50px 0 40px 0;
+
+  }  
+
+  .text {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    
+   
+  }
+}
