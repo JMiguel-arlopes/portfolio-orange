@@ -1,0 +1,52 @@
+.image {
+  width: 413px;
+  height: 336px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.image input[type="file"] {
+  display: none;
+}
+
+.image > p {
+  color: var(--Neutral-Colors-Neutral-110, #515255);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 16px;
+  letter-spacing: 0.15px;
+}
+
+.image label {
+  cursor: pointer;
+}
+
+.uploudImage {
+  width: 389px;
+  height: 304px;
+  background: var(--Neutral-Colors-Neutral-70, #e6e9f2);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+}
+
+.uploudImage img {
+  width: 38.333px;
+  height: 38.333px;
+  flex-shrink: 0;
+}
+
+.uploudImage h2 {
+  width: 270px;
+  color: var(--Neutral-Colors-Neutral-120, #303133);
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 14px;
+  letter-spacing: 0.25px;
+  cursor: pointer;
+}
