@@ -6,7 +6,7 @@ import { IoClose } from "react-icons/io5";
 
 import img_bg from "../../../assets/img_projeto.png";
 
-export default function ViewProject({ handleOnClick }) {
+export default function ViewProject({ formData, handleOnClick }) {
   const outModal = "outmodal";
 
   const disabledModal = (e) => {
@@ -24,7 +24,7 @@ export default function ViewProject({ handleOnClick }) {
         </div>
         <div className={styles.row_information}>
           <MiniatureProfile />
-          <h2>Ecommerce One Page</h2>
+          <h2>{formData.title ? formData.title: 'Sem título'}</h2>
           <div className={styles.tags}>
             <Tag text="Tag1" />
             <Tag text="Tag2" />
@@ -35,14 +35,9 @@ export default function ViewProject({ handleOnClick }) {
           <img src={img_bg} alt="image project" />
         </div>
         <div className={styles.general_description}>
-          <p>
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minima
-            ullam temporibus autem odit inventore nihil, molestias illum eveniet
-            illo nisi corporis? Distinctio numquam maiores minima placeat.
-            Placeat voluptates laborum eveniet!
-          </p>
+          <p>{formData.description ? formData.description : 'sem descrição...'}</p>
           <h5>Download</h5>
-          <a href="/">www.exemplo.com/kiplin</a>
+          <a href="/">{formData.link ? formData.link : '--'}</a>
         </div>
       </div>
     </ContainerModal>
