@@ -30,7 +30,6 @@
 
 .container {
   display: flex;
- 
 }
 
 .image {
@@ -79,11 +78,8 @@ input[type="file"] {
   font-weight: 400;
   line-height: 14px;
   letter-spacing: 0.25px;
-  
   cursor: pointer;
-  
 }
-
 
 .buttons {
   display: flex;
@@ -98,18 +94,36 @@ input[type="file"] {
 }
 
 .salvar {
-  border-radius: var(--borderRadius, 4px);
-  background: #f52;
-  color: white;
+  color: #fcfdff;
+  background: var(--orange);
+  border-radius: 4px;
+  padding: 8px 22px;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: 0.46px;
+  text-transform: uppercase;
+  cursor: pointer;
   border: 0;
+  outline: 0;
 }
 
 .cancelar {
+  background: rgba(0, 0, 0, 0.15);
+  color: rgba(0, 0, 0, 0.6);
+  font-size: 14px;
+  padding: 8px 22px;
   margin-left: 2px;
   border-radius: var(--borderRadius, 4px);
-  background: var(--action-disabledBackground, rgba(0, 0, 0, 0.12));
-  border: 0;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: 0.46px;
+  text-transform: uppercase;
   cursor: pointer;
+  border: 0;
+  outline: 0;
 }
 
 .visualizar {
@@ -117,7 +131,7 @@ input[type="file"] {
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
-  line-height: 16px; 
+  line-height: 16px;
   letter-spacing: 0.15px;
 }
 
