@@ -1,0 +1,37 @@
+.container_miniature_profile {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.container_miniature_profile img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.information_text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  margin-left: 8px;
+}
+
+.information_text h3 {
+  color: #303133;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+.information_text span {
+  font-family: Roboto;
+  color: #515255;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
