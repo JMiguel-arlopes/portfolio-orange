@@ -1,7 +1,9 @@
 import styles from "./setProjectModal.module.css";
-import Collections from "../../../assets/collections.svg";
+
 import FormNewProject from "../../form/FormNewProject";
 import { useState } from "react";
+import InputImage from "../../form/InputImage";
+import ContainerModal from "../ContainerModal";
 
 export default function SetProjectModal({ toggleModal }) {
   const outModal = "outmodal";
@@ -25,25 +27,12 @@ export default function SetProjectModal({ toggleModal }) {
   };
 
   return (
-    <section
-      className={styles.container_set_project_modal}
-      id={outModal}
-      onClick={disabledModal}
-    >
+    <ContainerModal id={outModal} handleOnCLick={disabledModal}>
       <form className={styles.modal} onSubmit={handleSubmit}>
         <h1>Adicionar projeto</h1>
 
         <div className={styles.container}>
-          <div className={styles.image}>
-            <p>Selecione o conteúdo que você deseja fazer upload</p>
-            <div class={styles.uploudImage}>
-              <img src={Collections} />
-              <label for="upload">
-                Compartilhe seu talento com milhares de pessoas
-              </label>
-              <input type="file" id="upload" name="upload" />
-            </div>
-          </div>
+          <InputImage />
 
           <div className={styles.form}>
             <FormNewProject handleChange={handleChange} formData={formData} />
@@ -63,6 +52,6 @@ export default function SetProjectModal({ toggleModal }) {
           </button>
         </div>
       </form>
-    </section>
+    </ContainerModal>
   );
 }
