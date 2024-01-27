@@ -6,6 +6,16 @@
   overflow-x: hidden;
   overflow-y: auto;
   border-radius: 4px;
+  position: relative;
+}
+
+.close {
+  color: #323232;
+  position: absolute;
+  top: 1rem;
+  right: 1.25rem;
+  cursor: pointer;
+  padding: 5px;
 }
 
 .row_information {
