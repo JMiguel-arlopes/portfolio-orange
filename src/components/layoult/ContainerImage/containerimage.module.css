@@ -8,3 +8,10 @@
 .container_img img {
   max-height: 100vh;
 }
+
+
+@media (max-width: 768px) {
+  .container_img {
+    display: none;
+  }
+}
