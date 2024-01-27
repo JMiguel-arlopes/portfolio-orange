@@ -60,7 +60,10 @@ export default function Home() {
                   name={currentUser.name}
                   imgBackground={img_project}
                   imgUser={img_profile}
+                  title={project.title}
                   tags={project.tags}
+                  link={project.link}
+                  description={project.description}
                 />
               );
             })
