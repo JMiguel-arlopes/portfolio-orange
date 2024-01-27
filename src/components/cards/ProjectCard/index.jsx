@@ -22,17 +22,19 @@ export default function ProjectCard({
   }
 
   return (
-    <div className={styles.card_project} onClick={toggleViewProject}>
-      <img src={imgBackground} alt="Background card" />
-      <div className={styles.row_information_project}>
-        <div>
-          <img src={imgUser} alt="image User" />
-          <h5>{name}</h5>
-        </div>
-        <div>
-          {tags.map((item, index) => {
-            return <Tag key={index} text={item} />;
-          })}
+    <>
+      <div className={styles.card_project} onClick={toggleViewProject}>
+        <img src={imgBackground} alt="Background card" />
+        <div className={styles.row_information_project}>
+          <div>
+            <img src={imgUser} alt="image User" />
+            <h5>{name}</h5>
+          </div>
+          <div>
+            {tags.map((item, index) => {
+              return <Tag key={index} text={item} />;
+            })}
+          </div>
         </div>
       </div>
       {viewProject && (
@@ -47,6 +49,6 @@ export default function ProjectCard({
           handleOnClick={toggleViewProject}
         />
       )}
-    </div>
+    </>
   );
 }
