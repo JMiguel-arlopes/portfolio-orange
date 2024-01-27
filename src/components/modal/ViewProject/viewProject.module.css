@@ -1,0 +1,75 @@
+.modal_view_project {
+  background-color: var(--white);
+  width: 890px;
+  max-height: 90vh;
+  padding: 3rem 4rem;
+  overflow-x: hidden;
+  overflow-y: auto;
+  border-radius: 4px;
+}
+
+.row_information {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.row_information h2 {
+  color: var(--neutral-color-strong);
+  text-align: center;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1;
+}
+
+.tags {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.image_project {
+  width: 100%;
+}
+
+.image_project img {
+  width: 100%;
+  margin-bottom: 1.75rem;
+}
+
+.general_description {
+  width: 100%;
+}
+
+.general_description p {
+  color: var(--neutral-color-strong);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0.5px;
+  margin-bottom: 1.75rem;
+}
+
+.general_description h5 {
+  color: #0b0c0d;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.5px;
+}
+
+.general_description a {
+  color: #608ae1;
+  font-family: Roboto;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 14px;
+  letter-spacing: 0.25px;
+}
