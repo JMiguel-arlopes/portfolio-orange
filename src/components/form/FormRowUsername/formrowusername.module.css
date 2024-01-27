@@ -6,16 +6,19 @@
   align-items: center;
 }
 
-.row_username > div:first-child {
-  margin-right: 5px;
-}
 
-.row_username > div:last-child {
-  margin-left: 5px;
-}
 
 @media (max-width: 768px) {
   .row_username {
     flex-direction: column;
+    
+  }
+
+  .row_username > div:first-child {
+    margin-right: 0;
+  }
+  
+  .row_username > div:last-child {
+    margin-left: 0;
   }
 }

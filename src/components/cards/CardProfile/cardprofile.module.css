@@ -70,3 +70,22 @@
   transform: scale(1.05);
   box-shadow: 0 0 10px var(--orange);
 }
+
+
+@media (max-width: 768px) {
+  .card_profile{
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+
+  }
+
+  .content_information_profile  h2{
+    margin-bottom: 8px;
+    
+  }
+
+  .content_information_profile  div{
+    margin-bottom: 8px;
+  }
+}
