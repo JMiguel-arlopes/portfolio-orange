@@ -7,7 +7,6 @@ export default function FormRowUsername({ handleOnChange, user }) {
       <Input
         text="First name"
         type="text"
-        placeholder="Letícia"
         name="firstName"
         handleOnChange={handleOnChange}
         value={user.firstName ? user.firstName : ""}
@@ -15,7 +14,6 @@ export default function FormRowUsername({ handleOnChange, user }) {
       <Input
         text="Last name"
         type="text"
-        placeholder="Silva"
         name="lastName"
         handleOnChange={handleOnChange}
         value={user.lastName ? user.lastName : ""}
