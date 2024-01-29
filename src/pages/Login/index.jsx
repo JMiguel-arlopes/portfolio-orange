@@ -26,7 +26,7 @@ export default function Login() {
 
           if (email === dataInput.email && password === dataInput.password) {
             setLoggedUser(user);
-            return navigate("/home");
+            return navigate(`/home/${user.id}`);
           }
         });
       })
