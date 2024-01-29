@@ -16,6 +16,8 @@ export default function Register() {
   const signUp = async () => {
     setTextSubmit("Aguarde...");
 
+    newUser.projects = [];
+
     await axios
       .post("http://localhost:8080/users", newUser)
       .then(() => {
