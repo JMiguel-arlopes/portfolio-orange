@@ -7,7 +7,9 @@ import ContainerModal from "../ContainerModal";
 import ModalSucess from "../ModalSucess";
 import ViewProject from "../ViewProject";
 
-export default function SetProjectModal({ toggleModal }) {
+import { v4 as uuidv4 } from "uuid";
+
+export default function SetProjectModal({ toggleModal, handleSubmit }) {
   const outModal = "outmodal";
   const [formData, setFormData] = useState({});
   const [sucess, setSucess] = useState(false);
@@ -40,12 +42,17 @@ export default function SetProjectModal({ toggleModal }) {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: [value] });
+
+    setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const createProject = (e) => {
     e.preventDefault();
-    console.log("Dados do formulário:", formData);
+
+    const updatedFormData = { ...formData };
+    updatedFormData.tags = updatedFormData.tags.split(" ");
+    updatedFormData.id = uuidv4();
+    handleSubmit(updatedFormData);
     activeSucess();
   };
 
@@ -53,7 +60,7 @@ export default function SetProjectModal({ toggleModal }) {
     <>
       {isForm && (
         <ContainerModal id={outModal} handleOnCLick={disabledModal}>
-          <form className={styles.modal} onSubmit={handleSubmit}>
+          <form className={styles.modal} onSubmit={createProject}>
             <h1>Adicionar projeto</h1>
 
             <div className={styles.container}>
