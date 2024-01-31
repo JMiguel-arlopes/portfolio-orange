@@ -1,5 +1,4 @@
 import styles from "./setProjectModal.module.css";
-
 import FormNewProject from "../../form/FormNewProject";
 import { useState } from "react";
 import InputImage from "../../form/InputImage";
@@ -7,11 +6,13 @@ import ContainerModal from "../ContainerModal";
 import ModalSucess from "../ModalSucess";
 import ViewProject from "../ViewProject";
 
-import { v4 as uuidv4 } from "uuid";
-
-export default function SetProjectModal({ toggleModal, handleSubmit }) {
+export default function SetProjectModal({
+  toggleModal,
+  handleSubmit,
+  initialData,
+}) {
   const outModal = "outmodal";
-  const [formData, setFormData] = useState({});
+  const [formData, setFormData] = useState(initialData || {});
   const [sucess, setSucess] = useState(false);
   const [isForm, setIsForm] = useState(true);
   const [view, setView] = useState(false);
@@ -42,17 +43,12 @@ export default function SetProjectModal({ toggleModal, handleSubmit }) {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-
     setFormData({ ...formData, [name]: value });
   };
 
   const createProject = (e) => {
     e.preventDefault();
-
-    const updatedFormData = { ...formData };
-    updatedFormData.tags = updatedFormData.tags.split(" ");
-    updatedFormData.id = uuidv4();
-    handleSubmit(updatedFormData);
+    handleSubmit(formData);
     activeSucess();
   };
 
