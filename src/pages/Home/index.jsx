@@ -11,6 +11,7 @@ import SetProjectModal from "../../components/modal/SetProjectModal";
 import ContainerProjects from "../../components/layoult/ContainerProjects";
 import ProjectCardHome from "../../components/cards/ProjectCardHome";
 import Input from "../../components/form/Input";
+import ModalSucess from "../../components/modal/ModalSucess";
 
 import img_project from "../../assets/img_projeto.png";
 import img_profile from "../../assets/perfil.png";
@@ -23,6 +24,7 @@ export default function Home() {
   const [visibleProjects, setVisibleProjects] = useState([]);
   const [projectsDone, setProjectsDone] = useState([]);
   const [modalAddProject, setModalAddProject] = useState(false);
+  const [isSucessMessage, setSucessMessage] = useState("");
 
   useEffect(() => {
     const dataUser = async () => {
@@ -51,6 +53,10 @@ export default function Home() {
     setVisibleProjects(updateProjects);
   };
 
+  const disabledModalSucess = () => {
+    setSucessMessage("");
+  };
+
   const toggleAddProjectModal = () => {
     setModalAddProject(!modalAddProject);
   };
@@ -68,6 +74,7 @@ export default function Home() {
       .then((resp) => {
         setCurrentUser(resp.data);
         setVisibleProjects(resp.data.projects);
+        setSucessMessage("Projeto adicionado com sucesso!");
       })
       .catch((err) => console.error(err));
   };
@@ -88,13 +95,13 @@ export default function Home() {
       .then((resp) => {
         setCurrentUser(resp.data);
         setVisibleProjects(resp.data.projects);
+        setSucessMessage("Projeto editado com sucesso!");
       })
       .catch((err) => console.error(err));
   };
 
   const deleteProject = async (project) => {
     const copyUser = { ...currentUser };
-
     copyUser.projects = copyUser.projects.filter((projectFiltered) => {
       return projectFiltered.id !== project.id;
     });
@@ -104,13 +111,14 @@ export default function Home() {
       .then((resp) => {
         setCurrentUser(resp.data);
         setVisibleProjects(resp.data.projects);
+        setSucessMessage("Projeto deletado com sucesso!");
       })
       .catch((err) => console.error(err));
   };
 
   return (
     <>
-      <Header />
+      <Header id={id} />
       <section className={styles.container_home}>
         <div className={styles.content_profile}>
           <CardProfile
@@ -154,6 +162,14 @@ export default function Home() {
         <SetProjectModal
           toggleModal={toggleAddProjectModal}
           handleSubmit={addProject}
+          modalTitle="Adicionar Projeto"
+          messageSucess="Projeto adicionado com sucesso!"
+        />
+      )}
+      {isSucessMessage && (
+        <ModalSucess
+          message={isSucessMessage}
+          handleOnClick={disabledModalSucess}
         />
       )}
     </>
