@@ -10,28 +10,20 @@ export default function SetProjectModal({
   toggleModal,
   handleSubmit,
   initialData,
+  modalTitle,
 }) {
   const outModal = "outmodal";
   const [formData, setFormData] = useState(initialData || {});
-  const [sucess, setSucess] = useState(false);
   const [isForm, setIsForm] = useState(true);
   const [view, setView] = useState(false);
 
-  const activeSucess = () => {
-    setIsForm(false);
-    setView(false);
-    setSucess(true);
-  };
-
   const activeForm = () => {
     setView(false);
-    setSucess(false);
     setIsForm(true);
   };
 
   const activeView = () => {
     setIsForm(false);
-    setSucess(false);
     setView(true);
   };
 
@@ -49,7 +41,7 @@ export default function SetProjectModal({
   const createProject = (e) => {
     e.preventDefault();
     handleSubmit(formData);
-    activeSucess();
+    toggleModal();
   };
 
   return (
@@ -57,7 +49,7 @@ export default function SetProjectModal({
       {isForm && (
         <ContainerModal id={outModal} handleOnCLick={disabledModal}>
           <form className={styles.modal} onSubmit={createProject}>
-            <h1>Adicionar projeto</h1>
+            <h1>{modalTitle}</h1>
 
             <div className={styles.container}>
               <InputImage />
@@ -88,12 +80,6 @@ export default function SetProjectModal({
         </ContainerModal>
       )}
       {view && <ViewProject formData={formData} handleOnClick={activeForm} />}
-      {sucess && (
-        <ModalSucess
-          message="Projeto criado com sucesso!"
-          handleOnClick={toggleModal}
-        />
-      )}
     </>
   );
 }
