@@ -1,9 +1,9 @@
 import { useState } from "react";
-import styles from "./projectCard.module.css";
+import styles from "../ProjectCardHome/projectCard.module.css";
 import ViewProject from "../../modal/ViewProject";
 import Tag from "../../layoult/Tag";
 
-export default function ProjectCard({
+export default function ProjectCardExplore({
   name,
   imgBackground,
   imgUser,
@@ -12,9 +12,6 @@ export default function ProjectCard({
   link,
   description,
 }) {
-  // você vai mudar para o Project fazer a requisição Get quando for clicado e pegar
-  // os dados de Title, tags, link e description
-  // por enquanto irá colocar aqui para conseguir fazer a tela
   const [viewProject, setViewProject] = useState(false);
 
   function toggleViewProject() {
@@ -37,6 +34,7 @@ export default function ProjectCard({
           </div>
         </div>
       </div>
+
       {viewProject && (
         <ViewProject
           name={name}
