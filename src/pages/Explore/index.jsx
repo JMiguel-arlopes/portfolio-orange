@@ -3,7 +3,7 @@ import { useState } from "react";
 import Header from "../../components/layoult/Header";
 import SetProjectModal from "../../components/modal/SetProjectModal";
 import ContainerProjects from "../../components/layoult/ContainerProjects";
-import ProjectCard from "../../components/cards/ProjectCard";
+import ProjectCard from "../../components/cards/ProjectCardHome";
 
 import db from "../../db.json";
 import img_project from "../../assets/img_projeto.png";
