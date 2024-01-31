@@ -4,7 +4,8 @@ import Perfil from "../../../assets/perfil.png";
 import Icon from "../../../assets/icon.svg";
 import Menu from "../../../assets/MenuFilled.svg";
 import { Link } from "react-router-dom";
-export default function Header() {
+
+export default function Header({ id }) {
   function openSidebar() {
     document.getElementById("sidebar").style.display = "block";
     document.getElementById("menu").style.display = "none";
@@ -22,10 +23,10 @@ export default function Header() {
       <div id="sidebar" className={styles.sidebar}>
         <div className={styles.menusidebar}>
           <button onClick={closeSidebar}>FECHAR MENU</button>
-          <Link className={styles.linkssidebar} to={"/home"}>
+          <Link className={styles.linkssidebar} to={`/home/${id}`}>
             Meus projetos
           </Link>
-          <Link className={styles.linkssidebar} to={"/explore"}>
+          <Link className={styles.linkssidebar} to={`/explore/${id}`}>
             {" "}
             Descobrir
           </Link>
@@ -46,10 +47,10 @@ export default function Header() {
         <img id="logo" src={Logo} />
 
         <div className={styles.menu}>
-          <Link className={styles.links} to={"/home"}>
+          <Link className={styles.links} to={`/home/${id}`}>
             Meus projetos
           </Link>
-          <Link className={styles.links} to={"/explore"}>
+          <Link className={styles.links} to={`/explore/${id}`}>
             {" "}
             Descobrir
           </Link>

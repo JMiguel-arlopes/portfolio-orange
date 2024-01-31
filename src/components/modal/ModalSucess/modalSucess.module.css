@@ -1,5 +1,5 @@
 .container_modal_sucess {
-  background-color: Var(--white);
+  background-color: var(--white);
   padding: 2rem 3rem;
   max-width: 350px;
   display: flex;
