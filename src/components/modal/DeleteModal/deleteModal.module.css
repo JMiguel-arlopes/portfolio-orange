@@ -1,0 +1,73 @@
+.container_delete_modal {
+  background-color: var(--white);
+  border-radius: 4px;
+  padding: 2.4rem 2.5rem;
+  max-width: 410px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.container_delete_modal h2 {
+  color: var(--neutral-color);
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1;
+  margin-bottom: 1.75rem;
+}
+
+.container_delete_modal p {
+  color: var(--neutral-color);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0.5px;
+  margin-bottom: 1.75rem;
+}
+
+.row_btns {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 32px;
+}
+
+.row_btns > button {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 8px 22px;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 26px;
+  letter-spacing: 0.46px;
+  text-transform: uppercase;
+  font-style: normal;
+  text-align: center;
+  border: 0;
+  outline: 0;
+  border-radius: 4px;
+  box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2),
+    0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+  cursor: pointer;
+  transition: 0.15s;
+}
+
+.row_btns > button:hover {
+  transform: scale(1.04);
+}
+
+.row_btns > button:first-child {
+  background: var(--orange);
+  color: var(--white);
+}
+
+.row_btns > button:last-child {
+  background: rgba(0, 0, 0, 0.12);
+  color: rgba(0, 0, 0, 0.38);
+}
