@@ -4,6 +4,7 @@ import ViewProject from "../../modal/ViewProject";
 import Tag from "../../layoult/Tag";
 import Mode from "../../layoult/Mode";
 import SetProjectModal from "../../modal/SetProjectModal";
+import DeleteModal from "../../modal/DeleteModal";
 
 export default function ProjectCardHome({
   dataProject,
@@ -20,6 +21,7 @@ export default function ProjectCardHome({
 }) {
   const [viewProject, setViewProject] = useState(false);
   const [isEditProject, setEditProject] = useState(false);
+  const [isDeleteProject, setDeleteProject] = useState(false);
 
   function toggleViewProject() {
     setViewProject(!viewProject);
@@ -30,7 +32,12 @@ export default function ProjectCardHome({
   }
 
   function toggleDeleteProject() {
+    setDeleteProject(!isDeleteProject);
+  }
+
+  function deleteProject() {
     handleDelete(dataProject);
+    toggleDeleteProject();
   }
 
   return (
@@ -73,6 +80,14 @@ export default function ProjectCardHome({
           toggleModal={toggleEditProject}
           handleSubmit={handleEdit}
           initialData={dataProject}
+          modalTitle="Editar Projeto"
+        />
+      )}
+
+      {isDeleteProject && (
+        <DeleteModal
+          cancel={toggleDeleteProject}
+          handleDelete={deleteProject}
         />
       )}
     </>
