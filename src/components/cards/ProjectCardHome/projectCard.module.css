@@ -1,0 +1,45 @@
+.card_project {
+  width: 450px;
+  position: relative;
+}
+
+.card_project > img {
+  width: 100%;
+}
+
+.row_information_project {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.row_information_project div:first-child {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.row_information_project div:first-child > h5 {
+  color: #515255;
+  text-transform: capitalize;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.15px;
+}
+
+.row_information_project div:first-child > img {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+.row_information_project div:last-child {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
