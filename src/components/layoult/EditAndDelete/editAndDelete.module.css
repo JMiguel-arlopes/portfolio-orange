@@ -1,0 +1,41 @@
+.container_edit_delete {
+  background-color: var(--white);
+  padding: 1rem 0;
+  border-radius: 4px;
+  width: 230px;
+  position: relative;
+}
+
+.triangle {
+  background-color: var(--white);
+  width: 20px;
+  height: 10px;
+  position: absolute;
+  top: -7.5px;
+  right: 5px;
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+}
+
+.container_edit_delete > div {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  padding: 0.5rem 0.5rem;
+  transition: 0.25s;
+  cursor: pointer;
+}
+
+.container_edit_delete > div:hover {
+  background-color: var(--orange);
+}
+
+.container_edit_delete > div h2 {
+  color: var(var(--neutral-color));
+  margin-left: 0.5rem;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0.15px;
+}
