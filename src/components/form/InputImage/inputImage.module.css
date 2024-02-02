@@ -50,3 +50,14 @@
   letter-spacing: 0.25px;
   cursor: pointer;
 }
+
+.uploudImage.withImage {
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.uploudImage.withImage img,
+.uploudImage.withImage h2 {
+  display: none;
+}
