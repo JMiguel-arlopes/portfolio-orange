@@ -1,6 +1,7 @@
 .input_container {
   flex: 1;
-  display: inline-block;
+  display: flex;
+  align-items: stretch;
   width: 100%;
   padding: 0 12px;
   border: var(--border);
@@ -52,4 +53,9 @@
   outline: none;
 }
 
-
+.eye {
+  padding: 0 8px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}

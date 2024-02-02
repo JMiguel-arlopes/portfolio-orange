@@ -1,6 +1,5 @@
-import { useState } from "react";
 import styles from "./input.module.css";
-
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 export default function Input({
   text,
   name,
@@ -8,16 +7,13 @@ export default function Input({
   handleOnChange,
   value,
   required = true,
+  icon = false,
+  isPassword = false,
+  toggleVisible,
 }) {
-  const [isFocus, setFocus] = useState(false);
-
-  const handleInputFocus = () => {
-    setFocus(true);
-  };
-
   return (
     <div className={styles.input_container}>
-      <label htmlFor={name} className={isFocus ? styles.up : ""}>
+      <label htmlFor={name} className={value != "" ? styles.up : ""}>
         {text}
       </label>
       <input
@@ -27,8 +23,12 @@ export default function Input({
         name={name}
         onChange={handleOnChange}
         value={value}
-        onFocus={handleInputFocus}
       />
+      {icon && (
+        <div className={styles.eye} onClick={toggleVisible}>
+          {!isPassword ? <FaEye size={16} /> : <FaEyeSlash size={18} />}
+        </div>
+      )}
     </div>
   );
 }
