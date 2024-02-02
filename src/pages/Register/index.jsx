@@ -9,19 +9,39 @@ import Notification from "../../components/layoult/Notification";
 
 export default function Register() {
   let navigate = useNavigate();
+  const url = "http://localhost:8080/users";
   const [newUser, setNewUser] = useState({});
   const [textSubmit, setTextSubmit] = useState("Cadastrar");
-  const [notificationSucess, SetNotificationSucess] = useState(false);
+  const [notificationSucess, setNotificationSucess] = useState(false);
+  const [notificationError, setNotificationError] = useState(false);
+  const [emailError, setEmailError] = useState(false);
+  const [isDisabledSubmit, setDisabledSubmit] = useState(false);
 
   const signUp = async () => {
     setTextSubmit("Aguarde...");
+    setDisabledSubmit(true);
 
+    await verificationEmail();
+
+    if (emailError) {
+      setNotificationError(true);
+      setTextSubmit("Cadastrar");
+      setEmailError(false);
+      setDisabledSubmit(false);
+      return;
+    } else {
+      await createUser();
+      setDisabledSubmit(false);
+    }
+  };
+
+  const createUser = async () => {
     newUser.projects = [];
 
     await axios
-      .post("http://localhost:8080/users", newUser)
+      .post(url, newUser)
       .then(() => {
-        SetNotificationSucess(true);
+        setNotificationSucess(true);
         setTimeout(() => {
           setTextSubmit("Cadastrar");
           navigate("/login");
@@ -32,8 +52,31 @@ export default function Register() {
       });
   };
 
+  const verificationEmail = async () => {
+    await axios
+      .get(url)
+      .then((resp) => {
+        const users = resp.data;
+        const isRepeatEmail = users.some(
+          (user) => newUser.email === user.email
+        );
+        setEmailError(isRepeatEmail);
+      })
+      .catch((error) => {
+        console.log("erro ao cadastrar: ", error);
+      });
+  };
+
   const handleChangeText = (e) => {
     setNewUser({ ...newUser, [e.target.name]: e.target.value });
+  };
+
+  const toggleSucess = () => {
+    setNotificationSucess(!notificationSucess);
+  };
+
+  const toggleError = () => {
+    setNotificationError(!notificationError);
   };
 
   return (
@@ -41,7 +84,18 @@ export default function Register() {
       <ContainerImage img={img_register} alt="imagem do cadastro" />
       <div className={styles.content_register}>
         {notificationSucess && (
-          <Notification status="sucess" message="Cadastro feito com sucesso" />
+          <Notification
+            status="sucess"
+            message="Cadastro feito com sucesso"
+            toggleNotification={toggleSucess}
+          />
+        )}
+        {notificationError && (
+          <Notification
+            status="error"
+            message="Email já cadastrado"
+            toggleNotification={toggleError}
+          />
         )}
         <h2>Cadastre-se</h2>
         <FormRegister
@@ -49,6 +103,7 @@ export default function Register() {
           handleOnChange={handleChangeText}
           dataUser={newUser}
           textSubmit={textSubmit}
+          disabled={isDisabledSubmit}
         />
       </div>
     </section>
