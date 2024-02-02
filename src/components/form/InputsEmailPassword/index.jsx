@@ -1,13 +1,19 @@
+import { useState } from "react";
 import Input from "../Input";
 
 export default function InputsEmailPassword({ handleOnChange, user }) {
+  const [isPassword, setPassword] = useState(false);
+
+  const togglePassword = () => {
+    setPassword(!isPassword);
+  };
+
   return (
     <>
       <Input
         text="Email adress"
         name="email"
         type="email"
-        placeholder="John@gmail.com"
         handleOnChange={handleOnChange}
         value={user.email ? user.email : ""}
       />
@@ -15,10 +21,12 @@ export default function InputsEmailPassword({ handleOnChange, user }) {
       <Input
         text="Password"
         name="password"
-        type="password"
-        placeholder="3ygyg37ry74hsa"
+        type={!isPassword ? "password" : "text"}
         handleOnChange={handleOnChange}
         value={user.password ? user.password : ""}
+        toggleVisible={togglePassword}
+        isPassword={isPassword}
+        icon={true}
       />
     </>
   );
