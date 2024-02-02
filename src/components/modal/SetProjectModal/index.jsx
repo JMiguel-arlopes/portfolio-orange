@@ -3,7 +3,6 @@ import FormNewProject from "../../form/FormNewProject";
 import { useState } from "react";
 import InputImage from "../../form/InputImage";
 import ContainerModal from "../ContainerModal";
-import ModalSucess from "../ModalSucess";
 import ViewProject from "../ViewProject";
 
 export default function SetProjectModal({
@@ -16,6 +15,7 @@ export default function SetProjectModal({
   const [formData, setFormData] = useState(initialData || {});
   const [isForm, setIsForm] = useState(true);
   const [view, setView] = useState(false);
+  const [ImageToUpload, setImageToUpload] = useState("");
 
   const activeForm = () => {
     setView(false);
@@ -38,6 +38,13 @@ export default function SetProjectModal({
     setFormData({ ...formData, [name]: value });
   };
 
+  const handleUpload = (e) => {
+    const { name, files } = e.target;
+    setImageToUpload(files[0]);
+    setFormData({ ...formData, [name]: files[0] });
+    console.log(formData);
+  };
+
   const createProject = (e) => {
     e.preventDefault();
     handleSubmit(formData);
@@ -52,7 +59,10 @@ export default function SetProjectModal({
             <h1>{modalTitle}</h1>
 
             <div className={styles.container}>
-              <InputImage />
+              <InputImage
+                handleUpload={handleUpload}
+                dataImage={ImageToUpload}
+              />
 
               <div className={styles.form}>
                 <FormNewProject
