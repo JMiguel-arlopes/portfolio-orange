@@ -1,5 +1,5 @@
 import styles from "./home.module.css";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
@@ -15,9 +15,11 @@ import ModalSucess from "../../components/modal/ModalSucess";
 
 import img_project from "../../assets/img_projeto.png";
 import img_profile from "../../assets/perfil.png";
+import { UserContext } from "../../context/UserContext";
 
 export default function Home() {
   const { id } = useParams();
+  const { loggedUser } = useContext(UserContext);
   const url = `http://localhost:8080/users/${id}`;
 
   const [currentUser, setCurrentUser] = useState({});
@@ -26,21 +28,21 @@ export default function Home() {
   const [modalAddProject, setModalAddProject] = useState(false);
   const [isSucessMessage, setSucessMessage] = useState("");
 
-  useEffect(() => {
-    const dataUser = async () => {
-      await axios
-        .get(url)
-        .then((response) => {
-          const user = response.data;
-          setCurrentUser(user);
-          setProjectsDone(user.projects);
-          setVisibleProjects(user.projects);
-        })
-        .catch((err) => console.error(err));
-    };
+  const dataUser = async () => {
+    await axios
+      .get(url)
+      .then((response) => {
+        const user = response.data;
+        setCurrentUser(user);
+        setProjectsDone(user.projects);
+        setVisibleProjects(user.projects);
+      })
+      .catch((err) => console.error(err));
+  };
 
+  useEffect(() => {
     dataUser();
-  }, [id]);
+  }, [url]);
 
   const filterProjectsByTag = (e) => {
     const word = e.target.value.toLowerCase();

@@ -65,27 +65,24 @@
 }
 
 .content_information_profile button:hover {
-  color: var(--orange);
-  background: rgba(0, 0, 0, 0.3);
+  color: var(--white);
+  background: var(--orange);
   transform: scale(1.05);
-  box-shadow: 0 0 10px var(--orange);
+  box-shadow: 0 0 5px var(--orange);
 }
 
-
 @media (max-width: 768px) {
-  .card_profile{
+  .card_profile {
     flex-direction: column;
     align-items: center;
     gap: 16px;
-
   }
 
-  .content_information_profile  h2{
+  .content_information_profile h2 {
     margin-bottom: 8px;
-    
   }
 
-  .content_information_profile  div{
+  .content_information_profile div {
     margin-bottom: 8px;
   }
 }

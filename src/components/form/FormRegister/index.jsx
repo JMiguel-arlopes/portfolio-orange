@@ -8,6 +8,7 @@ export default function FormRegister({
   handleOnChange,
   dataUser,
   textSubmit,
+  disabled
 }) {
   const submit = (e) => {
     e.preventDefault();
@@ -18,7 +19,7 @@ export default function FormRegister({
     <form className={styles.container_form_register} onSubmit={submit}>
       <FormRowUsername handleOnChange={handleOnChange} user={dataUser} />
       <InputsEmailPassword handleOnChange={handleOnChange} user={dataUser} />
-      <Submit textSubmit={textSubmit} />
+      <Submit textSubmit={textSubmit} disabled={disabled}/>
     </form>
   );
 }
