@@ -11,6 +11,10 @@
   max-width: 520px;
 }
 
+.error {
+  border-color: red;
+}
+
 .input_container label {
   color: var(--neutral-color);
   font-feature-settings: "clig" off, "liga" off;
@@ -51,6 +55,15 @@
   font-style: normal;
   border: none;
   outline: none;
+}
+
+.notice {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  font-size: 12px;
+  color: red;
+  font-weight: 400;
 }
 
 .eye {

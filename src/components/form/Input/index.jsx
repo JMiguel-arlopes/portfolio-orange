@@ -10,6 +10,8 @@ export default function Input({
   icon = false,
   isPassword = false,
   toggleVisible,
+  maxLength = 256,
+  messageError = "",
 }) {
   return (
     <div className={styles.input_container}>
@@ -23,6 +25,7 @@ export default function Input({
         name={name}
         onChange={handleOnChange}
         value={value}
+        maxLength={maxLength}
       />
       {icon && (
         <div className={styles.eye} onClick={toggleVisible}>
