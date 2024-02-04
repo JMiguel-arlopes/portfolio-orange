@@ -9,66 +9,60 @@ import Notification from "../../components/layoult/Notification";
 
 export default function Register() {
   let navigate = useNavigate();
-  const url = "http://localhost:8080/users";
+  const BASE_URL = "https://hackaton-orange-app-backend.onrender.com";
+  const endPoint = `${BASE_URL}/api/users/register`;
   const [newUser, setNewUser] = useState({});
   const [textSubmit, setTextSubmit] = useState("Cadastrar");
   const [notificationSucess, setNotificationSucess] = useState(false);
-  const [notificationError, setNotificationError] = useState(false);
-  const [emailError, setEmailError] = useState(false);
+  const [notificationError, setNotificationError] = useState("");
   const [isDisabledSubmit, setDisabledSubmit] = useState(false);
 
   const signUp = async () => {
     setTextSubmit("Aguarde...");
     setDisabledSubmit(true);
+    joinName();
 
-    await verificationEmail();
-
-    if (emailError) {
-      setNotificationError(true);
-      setTextSubmit("Cadastrar");
-      setEmailError(false);
-      setDisabledSubmit(false);
-      return;
-    } else {
-      await createUser();
-      setDisabledSubmit(false);
-    }
-  };
-
-  const createUser = async () => {
-    newUser.projects = [];
-
-    await axios
-      .post(url, newUser)
-      .then(() => {
+    createUser();
+    try {
+      await axios.post(endPoint, newUser).then((resp) => {
+        console.log(resp.data);
         setNotificationSucess(true);
         setTimeout(() => {
           setTextSubmit("Cadastrar");
           navigate("/login");
         }, 100);
-      })
-      .catch((error) => {
-        console.log("erro ao cadastrar: ", error);
       });
+    } catch (err) {
+      const { status } = err.response;
+      if (status == 400) {
+        setNotificationError("Essa conta já foi criada!");
+      } else {
+        setNotificationError(err.message);
+      }
+    } finally {
+      setNewUser({});
+      setDisabledSubmit(false);
+      setTextSubmit("Cadastrar");
+    }
   };
 
-  const verificationEmail = async () => {
-    await axios
-      .get(url)
-      .then((resp) => {
-        const users = resp.data;
-        const isRepeatEmail = users.some(
-          (user) => newUser.email === user.email
-        );
-        setEmailError(isRepeatEmail);
-      })
-      .catch((error) => {
-        console.log("erro ao cadastrar: ", error);
-      });
+  const createUser = async () => {
+    newUser.projects = [];
+  };
+
+  const joinName = () => {
+    const username = newUser.firstName + " " + newUser.lastName;
+    newUser.name = username;
+    delete newUser.firstName;
+    delete newUser.lastName;
   };
 
   const handleChangeText = (e) => {
-    setNewUser({ ...newUser, [e.target.name]: e.target.value });
+    const { name, value, maxLength } = e.target;
+
+    const newValue = value.slice(0, maxLength);
+    // const
+    setNewUser({ ...newUser, [name]: newValue });
   };
 
   const toggleSucess = () => {
@@ -76,7 +70,7 @@ export default function Register() {
   };
 
   const toggleError = () => {
-    setNotificationError(!notificationError);
+    setNotificationError("");
   };
 
   return (
@@ -93,7 +87,7 @@ export default function Register() {
         {notificationError && (
           <Notification
             status="error"
-            message="Email já cadastrado"
+            message={notificationError}
             toggleNotification={toggleError}
           />
         )}
