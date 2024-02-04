@@ -9,6 +9,8 @@ import Home from "./pages/Home";
 import Explore from "./pages/Explore";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { UserProvider } from "./context/UserContext";
+import { GoogleOAuthProvider } from '@react-oauth/google';
+import GoogleLoginButton from "./components/googleLoginButton/GoogleLoginButton";
 
 const router = createBrowserRouter([
   {
@@ -22,6 +24,10 @@ const router = createBrowserRouter([
       {
         path: "/login",
         element: <Login />,
+      },
+      {
+        path: "/googleLogin",
+        element: <GoogleLoginButton />,
       },
       {
         path: "/register",
@@ -42,9 +48,11 @@ const router = createBrowserRouter([
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <UserProvider>
-      <RouterProvider router={router} />
-    </UserProvider>
+    <GoogleOAuthProvider clientId="1059231167654-cq63pk7ssegtb96rn0top7bbi0d5r5d7.apps.googleusercontent.com">
+      <UserProvider>
+        <RouterProvider router={router} />
+      </UserProvider>
+    </GoogleOAuthProvider>
   </React.StrictMode>
 );
 
