@@ -15,12 +15,15 @@ import ModalSucess from "../../components/modal/ModalSucess";
 
 import img_project from "../../assets/img_projeto.png";
 import img_profile from "../../assets/perfil.png";
+import { jwtDecode } from "jwt-decode";
 import { UserContext } from "../../context/UserContext";
 
 export default function Home() {
-  const { id } = useParams();
-  const { loggedUser } = useContext(UserContext);
-  const url = `http://localhost:8080/users/${id}`;
+  // const { id } = useParams();
+  // const url = `http://localhost:8080/users/${id}`;
+
+  // useContext
+  const { loggedUser, setLoggedUser } = useContext(UserContext);
 
   const [currentUser, setCurrentUser] = useState({});
   const [visibleProjects, setVisibleProjects] = useState([]);
@@ -28,21 +31,38 @@ export default function Home() {
   const [modalAddProject, setModalAddProject] = useState(false);
   const [isSucessMessage, setSucessMessage] = useState("");
 
+  // requisições
+  const BASE_URL = "https://hackaton-orange-app-backend.onrender.com";
+  const decoded = jwtDecode(localStorage.getItem("token"));
+  const email = decoded.sub;
+
   const dataUser = async () => {
+    const endPoint = `${BASE_URL}/api/users/all`;
+
     await axios
-      .get(url)
-      .then((response) => {
-        const user = response.data;
-        setCurrentUser(user);
-        setProjectsDone(user.projects);
-        setVisibleProjects(user.projects);
+      .get(endPoint, {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      })
+      .then((resp) => {
+        const users = resp.data;
+        users.forEach((user) => {
+          if (user.email == email) {
+            console.log(user);
+            setLoggedUser(user);
+            setCurrentUser(user);
+            setProjectsDone(user.projects);
+            setVisibleProjects(user.projects);
+          }
+        });
       })
       .catch((err) => console.error(err));
   };
 
   useEffect(() => {
     dataUser();
-  }, [url]);
+  }, [BASE_URL]);
 
   const filterProjectsByTag = (e) => {
     const word = e.target.value.toLowerCase();
@@ -64,67 +84,70 @@ export default function Home() {
   };
 
   const addProject = async (project) => {
-    const result = currentUser;
+    // código antigo:
+    // newProject.id = uuidv4();
+    // const result = currentUser;
+    // result.projects = [...result.projects, newProject];
+
+    const endPoint = `${BASE_URL}/api/projects`;
+
     const newProject = { ...project };
-    newProject.tags = newProject.tags.split(/[,\s]+/);
-    newProject.id = uuidv4();
+    newProject.tags = newProject.tags.split(/[,\s;\/-]+/);
+    console.log(newProject);
 
-    result.projects = [...result.projects, newProject];
-
-    await axios
-      .patch(url, result)
-      .then((resp) => {
-        setCurrentUser(resp.data);
-        setVisibleProjects(resp.data.projects);
-        setSucessMessage("Projeto adicionado com sucesso!");
-      })
-      .catch((err) => console.error(err));
+    // await axios
+    //   .post(endPoint, newProject)
+    //   .then((resp) => {
+    //     setVisibleProjects(resp.data);
+    //     setSucessMessage("Projeto adicionado com sucesso!");
+    //   })
+    //   .catch((err) => console.error(err));
   };
 
   const editProject = async (project) => {
-    const copyUser = { ...currentUser };
-    const newProject = { ...project };
-    newProject.tags = newProject.tags.split(/[,\s]+/);
-
-    copyUser.projects = copyUser.projects.filter(
-      (projectFiltered) => projectFiltered.id !== newProject.id
-    );
-
-    copyUser.projects.unshift(newProject);
-
-    await axios
-      .patch(url, copyUser)
-      .then((resp) => {
-        setCurrentUser(resp.data);
-        setVisibleProjects(resp.data.projects);
-        setSucessMessage("Projeto editado com sucesso!");
-      })
-      .catch((err) => console.error(err));
+    //   const copyUser = { ...currentUser };
+    //   const newProject = { ...project };
+    //   newProject.tags = newProject.tags.split(/[,\s]+/);
+    //   copyUser.projects = copyUser.projects.filter(
+    //     (projectFiltered) => projectFiltered.id !== newProject.id
+    //   );
+    //   copyUser.projects.unshift(newProject);
+    //   await axios
+    //     .patch(url, copyUser)
+    //     .then((resp) => {
+    //       setCurrentUser(resp.data);
+    //       setVisibleProjects(resp.data.projects);
+    //       setSucessMessage("Projeto editado com sucesso!");
+    //     })
+    //     .catch((err) => console.error(err));
   };
 
   const deleteProject = async (project) => {
-    const copyUser = { ...currentUser };
-    copyUser.projects = copyUser.projects.filter((projectFiltered) => {
-      return projectFiltered.id !== project.id;
-    });
+    // código antigo:
+    // copyUser.projects = copyUser.projects.filter((projectFiltered) => {
+    //   return projectFiltered.id !== project.id;
+    // });
+    const endPoint = `${BASE_URL}`;
 
-    await axios
-      .patch(url, copyUser)
-      .then((resp) => {
-        setCurrentUser(resp.data);
-        setVisibleProjects(resp.data.projects);
-        setSucessMessage("Projeto deletado com sucesso!");
-      })
-      .catch((err) => console.error(err));
+    const copyUser = { ...project };
+
+    // await axios
+    //   .delete(endPoint, copyUser)
+    //   .then((resp) => {
+    //     setCurrentUser(resp.data);
+    //     setVisibleProjects(resp.data.projects);
+    //     setSucessMessage("Projeto deletado com sucesso!");
+    //   })
+    //   .catch((err) => console.error(err));
   };
 
   return (
     <>
-      <Header id={id} />
+      <Header />
       <section className={styles.container_home}>
         <div className={styles.content_profile}>
           <CardProfile
-            name={currentUser.firstName + " " + currentUser.lastName}
+            name={currentUser.name}
             toggleModal={toggleAddProjectModal}
           />
         </div>
@@ -141,9 +164,9 @@ export default function Home() {
             visibleProjects.map((project) => {
               return (
                 <ProjectCardHome
+                  key={project.id}
                   dataProject={project}
-                  id={project.id}
-                  name={currentUser.firstName + " " + currentUser.lastName}
+                  name={currentUser.name}
                   imgBackground={img_project}
                   imgUser={img_profile}
                   title={project.title}
