@@ -1,10 +1,10 @@
-import styles from "./setProjectModal.module.css";
+import axios from "axios";
+import { useContext, useState } from "react";
+import { UserContext } from "../../../context/UserContext";
 import FormNewProject from "../../form/FormNewProject";
-import { useState, useContext } from "react";
-import InputImage from "../../form/InputImage";
 import ContainerModal from "../ContainerModal";
 import ViewProject from "../ViewProject";
-import { UserContext } from "../../../context/UserContext";
+import styles from "./setProjectModal.module.css";
 export default function SetProjectModal({
   toggleModal,
   handleSubmit,
@@ -43,15 +43,45 @@ export default function SetProjectModal({
 
   const handleUpload = (e) => {
     const { name, files } = e.target;
-    setImageToUpload(files[0]);
-    setFormData({ ...formData, [name]: files[0] });
+    // setImageToUpload(files[0]);
+    setFormData({ ...formData, [name]: selectedFile });
   };
+
+  const HandleFileChange = (e) => {
+    const { name } = e.target
+    setSelectedFile(e.target.files[0])
+  }
 
   const createProject = (e) => {
     e.preventDefault();
-    handleSubmit(formData);
+
+    handleSubmit();
+    UploadImage()
     toggleModal();
   };
+
+  const UploadImage = async () => {
+    const token = localStorage.getItem("token");
+    const formData = new FormData();
+    formData.append('image', selectedFile);
+
+    try {
+      const response = await axios.post(
+        'https://hackaton-orange-app-backend.onrender.com/image',
+        formData,
+        {
+          headers: {
+            'Authorization': `${token}`
+          }
+        }
+      );
+      console.log('Resposta do servidor:', response.data);
+      return response;
+    } catch (error) {
+      console.error('Erro ao enviar imagem:', error);
+      throw error;
+    }
+  }
 
   return (
     <>
@@ -60,11 +90,19 @@ export default function SetProjectModal({
           <form className={styles.modal} onSubmit={createProject}>
             <h1>{modalTitle}</h1>
 
-            <div className={styles.container}>
+            {/* <div className={styles.container}>
               <InputImage
                 handleUpload={handleUpload}
                 dataImage={ImageToUpload}
+              /> */}
+
+            <div className={styles.container}>
+              <input
+                type="file"
+                name='file'
+                onChange={HandleFileChange}
               />
+
 
               <div className={styles.form}>
                 <FormNewProject

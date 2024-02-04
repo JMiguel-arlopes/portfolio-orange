@@ -1,5 +1,5 @@
-import styles from "./inputImage.module.css";
 import Collections from "../../../assets/collections.svg";
+import styles from "./inputImage.module.css";
 
 export default function InputImage({ handleUpload, dataImage }) {
   const toggleDisplay = dataImage ? { display: "none" } : { display: "block" };
@@ -13,9 +13,8 @@ export default function InputImage({ handleUpload, dataImage }) {
       <p>Selecione o conteúdo que você deseja fazer upload</p>
       <label htmlFor="uploadImg">
         <div
-          className={`${styles.uploudImage} ${
-            dataImage ? styles.withImage : ""
-          }`}
+          className={`${styles.uploudImage} ${dataImage ? styles.withImage : ""
+            }`}
           style={style}
         >
           <img src={Collections} style={toggleDisplay} />
