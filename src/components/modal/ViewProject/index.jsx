@@ -1,4 +1,5 @@
 import styles from "./viewProject.module.css";
+import { useContext } from "react";
 import MiniatureProfile from "../../layoult/MiniatureProfile";
 import Tag from "../../layoult/Tag";
 import ContainerModal from "../ContainerModal";
@@ -9,7 +10,7 @@ import img_bg from "../../../assets/img_projeto.png";
 export default function ViewProject({
   name,
   title,
-  tags,
+  tags = [],
   link,
   description,
   imgBackground,
@@ -31,16 +32,16 @@ export default function ViewProject({
           <IoClose size={24} />
         </div>
         <div className={styles.row_information}>
-          <MiniatureProfile />
+          <MiniatureProfile name={name} />
           <h2>{title}</h2>
           <div className={styles.tags}>
-            {tags.map((tag) => (
-              <Tag text={tag} />
-            ))}
+            {tags.map((tag, index) => {
+              return <Tag text={tag} key={index} />;
+            })}
           </div>
         </div>
         <div className={styles.image_project}>
-          <img src={img_bg} alt="image project" />
+          <img src={imgBackground || img_bg} alt="image project" />
         </div>
         <div className={styles.general_description}>
           <p>{description}</p>
