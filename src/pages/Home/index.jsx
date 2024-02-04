@@ -1,8 +1,6 @@
 import styles from "./home.module.css";
 import { useState, useEffect, useContext } from "react";
-import { useParams } from "react-router-dom";
 import axios from "axios";
-import { v4 as uuidv4 } from "uuid";
 
 import CardProfile from "../../components/cards/CardProfile";
 import Header from "../../components/layoult/Header";
@@ -15,15 +13,14 @@ import ModalSucess from "../../components/modal/ModalSucess";
 
 import img_project from "../../assets/img_projeto.png";
 import img_profile from "../../assets/perfil.png";
-import { jwtDecode } from "jwt-decode";
 import { UserContext } from "../../context/UserContext";
+import { useNavigate } from "react-router-dom";
 
 export default function Home() {
-  // const { id } = useParams();
-  // const url = `http://localhost:8080/users/${id}`;
+  
+  let navigate = useNavigate();
 
-  // useContext
-  const { loggedUser, setLoggedUser } = useContext(UserContext);
+  const { setLoggedUser } = useContext(UserContext);
 
   const [currentUser, setCurrentUser] = useState({});
   const [visibleProjects, setVisibleProjects] = useState([]);
@@ -33,11 +30,9 @@ export default function Home() {
 
   // requisições
   const BASE_URL = "https://hackaton-orange-app-backend.onrender.com";
-  const decoded = jwtDecode(localStorage.getItem("token"));
-  const email = decoded.sub;
 
   const dataUser = async () => {
-    const endPoint = `${BASE_URL}/api/users/all`;
+    const endPoint = `${BASE_URL}/api/users`;
 
     await axios
       .get(endPoint, {
@@ -46,18 +41,20 @@ export default function Home() {
         },
       })
       .then((resp) => {
-        const users = resp.data;
-        users.forEach((user) => {
-          if (user.email == email) {
-            console.log(user);
-            setLoggedUser(user);
-            setCurrentUser(user);
-            setProjectsDone(user.projects);
-            setVisibleProjects(user.projects);
-          }
-        });
+        const user = resp.data;
+        setLoggedUser(user);
+        setCurrentUser(user);
+        setProjectsDone(user.projects);
+        setVisibleProjects(user.projects);
       })
-      .catch((err) => console.error(err));
+      .catch((err) => {
+        // usa o useContext para, caso dê erro, a pessoa receba notificação independente do componente onde esteja
+        const { status } = err.response;
+        if (status == 401 || status == 403) {
+          navigate("/login");
+        }
+        console.error(err);
+      });
   };
 
   useEffect(() => {
@@ -77,6 +74,7 @@ export default function Home() {
 
   const disabledModalSucess = () => {
     setSucessMessage("");
+    dataUser();
   };
 
   const toggleAddProjectModal = () => {
@@ -84,61 +82,75 @@ export default function Home() {
   };
 
   const addProject = async (project) => {
-    // código antigo:
-    // newProject.id = uuidv4();
-    // const result = currentUser;
-    // result.projects = [...result.projects, newProject];
-
-    const endPoint = `${BASE_URL}/api/projects`;
+    const endPoint = `${BASE_URL}/projects/create`;
 
     const newProject = { ...project };
     newProject.tags = newProject.tags.split(/[,\s;\/-]+/);
-    console.log(newProject);
 
-    // await axios
-    //   .post(endPoint, newProject)
-    //   .then((resp) => {
-    //     setVisibleProjects(resp.data);
-    //     setSucessMessage("Projeto adicionado com sucesso!");
-    //   })
-    //   .catch((err) => console.error(err));
+    await axios
+      .post(endPoint, newProject, {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      })
+      .then(() => {
+        setSucessMessage("Projeto adicionado com sucesso!");
+      })
+      .catch((err) => {
+        const { status } = err.response;
+        if (status == 401) {
+          navigate("/login");
+        }
+        console.error(err);
+      });
   };
 
   const editProject = async (project) => {
-    //   const copyUser = { ...currentUser };
-    //   const newProject = { ...project };
-    //   newProject.tags = newProject.tags.split(/[,\s]+/);
-    //   copyUser.projects = copyUser.projects.filter(
-    //     (projectFiltered) => projectFiltered.id !== newProject.id
-    //   );
-    //   copyUser.projects.unshift(newProject);
-    //   await axios
-    //     .patch(url, copyUser)
-    //     .then((resp) => {
-    //       setCurrentUser(resp.data);
-    //       setVisibleProjects(resp.data.projects);
-    //       setSucessMessage("Projeto editado com sucesso!");
-    //     })
-    //     .catch((err) => console.error(err));
+    const endPoint = `${BASE_URL}/projects/update/${project.id}`;
+    const newProject = { ...project };
+
+    if (typeof newProject.tags === "string") {
+      newProject.tags = newProject.tags.split(/[,\s;\/-]+/);
+    }
+
+    await axios
+      .put(endPoint, newProject, {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      })
+      .then(() => {
+        setSucessMessage("Projeto editado com sucesso!");
+      })
+      .catch((err) => {
+        const { status } = err.response;
+        if (status == 401) {
+          navigate("/login");
+        }
+        console.error(err);
+      });
   };
 
   const deleteProject = async (project) => {
-    // código antigo:
-    // copyUser.projects = copyUser.projects.filter((projectFiltered) => {
-    //   return projectFiltered.id !== project.id;
-    // });
-    const endPoint = `${BASE_URL}`;
+    const endPoint = `${BASE_URL}/projects/delete/${project.id}`;
 
-    const copyUser = { ...project };
-
-    // await axios
-    //   .delete(endPoint, copyUser)
-    //   .then((resp) => {
-    //     setCurrentUser(resp.data);
-    //     setVisibleProjects(resp.data.projects);
-    //     setSucessMessage("Projeto deletado com sucesso!");
-    //   })
-    //   .catch((err) => console.error(err));
+    await axios
+      .delete(endPoint, {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      })
+      .then((resp) => {
+        console.log(resp);
+        setSucessMessage("Projeto deletado com sucesso!");
+      })
+      .catch((err) => {
+        const { status } = err.response;
+        if (status == 401 || status == 403) {
+          navigate("/login");
+        }
+        console.error(err);
+      });
   };
 
   return (
