@@ -1,29 +1,31 @@
 import styles from "./setProjectModal.module.css";
 import FormNewProject from "../../form/FormNewProject";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import InputImage from "../../form/InputImage";
 import ContainerModal from "../ContainerModal";
 import ViewProject from "../ViewProject";
-
+import { UserContext } from "../../../context/UserContext";
 export default function SetProjectModal({
   toggleModal,
   handleSubmit,
   initialData,
   modalTitle,
 }) {
+  const { loggedUser } = useContext(UserContext);
   const outModal = "outmodal";
   const [formData, setFormData] = useState(initialData || {});
-  const [isForm, setIsForm] = useState(true);
   const [view, setView] = useState(false);
   const [ImageToUpload, setImageToUpload] = useState("");
 
-  const activeForm = () => {
-    setView(false);
-    setIsForm(true);
+  console.log(initialData);
+  const toggleView = () => {
+    setView(!view);
   };
 
   const activeView = () => {
-    setIsForm(false);
+    if (typeof formData.tags === "string") {
+      formData.tags = formData.tags.split(/[,\s;\/-]+/);
+    }
     setView(true);
   };
 
@@ -37,6 +39,7 @@ export default function SetProjectModal({
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
+  console.log(formData);
 
   const handleUpload = (e) => {
     const { name, files } = e.target;
@@ -52,7 +55,7 @@ export default function SetProjectModal({
 
   return (
     <>
-      {isForm && (
+      {!view ? (
         <ContainerModal id={outModal} handleOnCLick={disabledModal}>
           <form className={styles.modal} onSubmit={createProject}>
             <h1>{modalTitle}</h1>
@@ -87,8 +90,16 @@ export default function SetProjectModal({
             </div>
           </form>
         </ContainerModal>
+      ) : (
+        <ViewProject
+          name={loggedUser.name}
+          title={formData.title}
+          link={formData.link}
+          tags={formData.tags}
+          description={formData.description}
+          handleOnClick={toggleView}
+        />
       )}
-      {view && <ViewProject formData={formData} handleOnClick={activeForm} />}
     </>
   );
 }
