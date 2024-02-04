@@ -20,7 +20,6 @@ export default function ViewProject({
 
   const disabledModal = (e) => {
     if (e.target.id === outModal) {
-      console.log(e.target);
       handleOnClick();
     }
   };

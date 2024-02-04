@@ -11,15 +11,16 @@ export default function InputsEmailPassword({ handleOnChange, user }) {
   return (
     <>
       <Input
-        text="Email adress"
+        text="Email"
         name="email"
         type="email"
         handleOnChange={handleOnChange}
         value={user.email ? user.email : ""}
+        maxLength={256}
       />
 
       <Input
-        text="Password"
+        text="Senha"
         name="password"
         type={!isPassword ? "password" : "text"}
         handleOnChange={handleOnChange}
@@ -27,6 +28,7 @@ export default function InputsEmailPassword({ handleOnChange, user }) {
         toggleVisible={togglePassword}
         isPassword={isPassword}
         icon={true}
+        maxLength={30}
       />
     </>
   );

@@ -42,7 +42,6 @@ export default function SetProjectModal({
     const { name, files } = e.target;
     setImageToUpload(files[0]);
     setFormData({ ...formData, [name]: files[0] });
-    console.log(formData);
   };
 
   const createProject = (e) => {
