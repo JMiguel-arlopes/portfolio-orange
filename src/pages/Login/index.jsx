@@ -3,46 +3,68 @@ import img_login from "../../assets/img_login.svg";
 import FormLogin from "../../components/form/FormLogin";
 import ContainerImage from "../../components/layoult/ContainerImage";
 import axios from "axios";
-import { useContext, useState } from "react";
-import { UserContext } from "../../context/UserContext";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Notification from "../../components/layoult/Notification";
+import { jwtDecode } from "jwt-decode";
 
 export default function Login() {
   let navigate = useNavigate();
   const [dataInput, setDataInput] = useState({});
-  const [notificationError, setNotificationError] = useState(false);
-  const { loggedUser, setLoggedUser } = useContext(UserContext);
+  const [notificationError, setNotificationError] = useState("");
 
   const singIn = async () => {
-    await axios
-      .get("http://localhost:8080/users")
-      .then((resp) => {
-        const users = resp.data;
+    const BASE_URL = "https://hackaton-orange-app-backend.onrender.com";
+    const endPoint = `${BASE_URL}/api/users/authenticate`;
 
-        users.forEach((user) => {
-          const email = user.email;
-          const password = user.password;
-
-          if (email === dataInput.email && password === dataInput.password) {
-            setLoggedUser(user);
-            return navigate(`/home/${user.id}`);
-          }
+    try {
+      await axios
+        .post(endPoint, {
+          email: dataInput.email,
+          password: dataInput.password,
+        })
+        .then((resp) => {
+          const token = resp.data.token;
+          localStorage.setItem("token", token);
+          navigate("/home");
         });
-      })
-      .then(() => {
-        toggleNotification();
-        setDataInput({});
-      })
-      .catch((error) => console.log("Usuário não encontrado: ", error));
+    } catch (err) {
+      setDataInput({});
+      if (err.response.status === 401 || err.response.status === 404) {
+        setNotificationError("Usuário ou Senha não encontrados!");
+      }
+      console.log(err);
+    }
+    // await axios
+    //   .get("http://localhost:8080/users")
+    //   .then((resp) => {
+    //     const users = resp.data;
+
+    //     users.forEach((user) => {
+    //       const email = user.email;
+    //       const password = user.password;
+
+    //       if (email === dataInput.email && password === dataInput.password) {
+    //         // setLoggedUser(user);
+    //         return navigate(`/home/${user.id}`);
+    //       }
+    //     });
+    //   })
+    //   .then(() => {
+    //     toggleNotification();
+    //     setDataInput({});
+    //   })
+    //   .catch((error) => console.error("Usuário não encontrado: ", error));
   };
 
   const handleChange = (e) => {
-    setDataInput({ ...dataInput, [e.target.name]: e.target.value });
+    const { name, value, maxLength } = e.target;
+    const newValue = e.target.value.slice(0, maxLength);
+    setDataInput({ ...dataInput, [name]: value });
   };
 
   const toggleNotification = () => {
-    setNotificationError(!notificationError);
+    setNotificationError("");
   };
 
   return (
@@ -51,7 +73,7 @@ export default function Login() {
       <div className={styles.content_login}>
         {notificationError && (
           <Notification
-            message="Email ou Senha não encontrados!"
+            message={notificationError}
             status="error"
             toggleNotification={toggleNotification}
           />
