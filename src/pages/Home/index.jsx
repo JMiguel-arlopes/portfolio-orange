@@ -1,23 +1,22 @@
-import styles from "./home.module.css";
-import { useState, useEffect, useContext } from "react";
 import axios from "axios";
+import { useContext, useEffect, useState } from "react";
+import styles from "./home.module.css";
 
 import CardProfile from "../../components/cards/CardProfile";
-import Header from "../../components/layoult/Header";
 import FirstProjectCard from "../../components/cards/FirstProjectCard";
-import SetProjectModal from "../../components/modal/SetProjectModal";
-import ContainerProjects from "../../components/layoult/ContainerProjects";
 import ProjectCardHome from "../../components/cards/ProjectCardHome";
 import Input from "../../components/form/Input";
+import ContainerProjects from "../../components/layoult/ContainerProjects";
+import Header from "../../components/layoult/Header";
 import ModalSucess from "../../components/modal/ModalSucess";
+import SetProjectModal from "../../components/modal/SetProjectModal";
 
-import img_project from "../../assets/img_projeto.png";
+import { useNavigate } from "react-router-dom";
 import img_profile from "../../assets/perfil.png";
 import { UserContext } from "../../context/UserContext";
-import { useNavigate } from "react-router-dom";
 
 export default function Home() {
-  
+
   let navigate = useNavigate();
 
   const { setLoggedUser } = useContext(UserContext);
@@ -30,7 +29,6 @@ export default function Home() {
 
   // requisições
   const BASE_URL = "https://hackaton-orange-app-backend.onrender.com";
-
   const dataUser = async () => {
     const endPoint = `${BASE_URL}/api/users`;
 
@@ -81,13 +79,13 @@ export default function Home() {
     setModalAddProject(!modalAddProject);
   };
 
-  const addProject = async (project) => {
+  const addProject = (project) => {
     const endPoint = `${BASE_URL}/projects/create`;
 
     const newProject = { ...project };
     newProject.tags = newProject.tags.split(/[,\s;\/-]+/);
 
-    await axios
+    axios
       .post(endPoint, newProject, {
         headers: {
           Authorization: localStorage.getItem("token"),
@@ -179,7 +177,7 @@ export default function Home() {
                   key={project.id}
                   dataProject={project}
                   name={currentUser.name}
-                  imgBackground={img_project}
+                  imgBackground={project.photo}
                   imgUser={img_profile}
                   title={project.title}
                   tags={project.tags}
