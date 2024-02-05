@@ -58,7 +58,7 @@ export default function ProjectCardHome({
     await axios
       .get(
         "https://hackaton-orange-app-backend.onrender.com/image/" +
-          `${imgBackground}`,
+        `${imgBackground}`,
         {
           headers: {
             Authorization: `${token}`,
