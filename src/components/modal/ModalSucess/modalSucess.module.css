@@ -44,3 +44,10 @@
   width: 100%;
   cursor: pointer;
 }
+
+@media screen and (max-width: 768px) {
+  .container_modal_sucess {
+    padding: 2.4rem 1.5rem;
+    width: 90vw;
+  }
+}
