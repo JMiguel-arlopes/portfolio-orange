@@ -48,11 +48,11 @@ export default function SetProjectModal({
       setFormData({ ...formData, [name]: value });
     }
   };
-  console.log(formData);
 
   const HandleFileChange = (e) => {
-    const { name } = e.target;
     setSelectedFile(e.target.files[0]);
+    const imageName = e.target.files[0].name;
+    setFormData({ ...formData, photo: imageName });
   };
 
   const createProject = (e) => {
