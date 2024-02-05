@@ -15,9 +15,9 @@ import img_project from "../../assets/img_projeto.png";
 import img_profile from "../../assets/perfil.png";
 import { UserContext } from "../../context/UserContext";
 import { useNavigate } from "react-router-dom";
+import Loading from "../../components/layoult/Loading";
 
 export default function Home() {
-  
   let navigate = useNavigate();
 
   const { setLoggedUser } = useContext(UserContext);
@@ -26,14 +26,14 @@ export default function Home() {
   const [visibleProjects, setVisibleProjects] = useState([]);
   const [projectsDone, setProjectsDone] = useState([]);
   const [modalAddProject, setModalAddProject] = useState(false);
+  const [isLoading, setLoading] = useState(false);
   const [isSucessMessage, setSucessMessage] = useState("");
 
-  // requisições
   const BASE_URL = "https://hackaton-orange-app-backend.onrender.com";
 
   const dataUser = async () => {
     const endPoint = `${BASE_URL}/api/users`;
-
+    setLoading(true);
     await axios
       .get(endPoint, {
         headers: {
@@ -49,11 +49,14 @@ export default function Home() {
       })
       .catch((err) => {
         // usa o useContext para, caso dê erro, a pessoa receba notificação independente do componente onde esteja
+        console.error(err);
         const { status } = err.response;
-        if (status == 401 || status == 403) {
+        if (status === 401 || status === 403) {
           navigate("/login");
         }
-        console.error(err);
+      })
+      .finally(() => {
+        setLoading(false);
       });
   };
 
@@ -85,7 +88,10 @@ export default function Home() {
     const endPoint = `${BASE_URL}/projects/create`;
 
     const newProject = { ...project };
-    newProject.tags = newProject.tags.split(/[,\s;\/-]+/);
+    if (typeof newProject.tags === "string") {
+      newProject.tags = newProject.tags.split(/[,\s;\/-]+/);
+    }
+    setLoading(true);
 
     await axios
       .post(endPoint, newProject, {
@@ -98,10 +104,13 @@ export default function Home() {
       })
       .catch((err) => {
         const { status } = err.response;
-        if (status == 401) {
+        if (status === 401) {
           navigate("/login");
         }
         console.error(err);
+      })
+      .finally(() => {
+        setLoading(false);
       });
   };
 
@@ -112,7 +121,7 @@ export default function Home() {
     if (typeof newProject.tags === "string") {
       newProject.tags = newProject.tags.split(/[,\s;\/-]+/);
     }
-
+    setLoading(true);
     await axios
       .put(endPoint, newProject, {
         headers: {
@@ -124,16 +133,19 @@ export default function Home() {
       })
       .catch((err) => {
         const { status } = err.response;
-        if (status == 401) {
+        if (status === 401) {
           navigate("/login");
         }
         console.error(err);
+      })
+      .finally(() => {
+        setLoading(false);
       });
   };
 
   const deleteProject = async (project) => {
     const endPoint = `${BASE_URL}/projects/delete/${project.id}`;
-
+    setLoading(true);
     await axios
       .delete(endPoint, {
         headers: {
@@ -146,10 +158,13 @@ export default function Home() {
       })
       .catch((err) => {
         const { status } = err.response;
-        if (status == 401 || status == 403) {
+        if (status === 401 || status === 403) {
           navigate("/login");
         }
         console.error(err);
+      })
+      .finally(() => {
+        setLoading(false);
       });
   };
 
@@ -203,6 +218,7 @@ export default function Home() {
           messageSucess="Projeto adicionado com sucesso!"
         />
       )}
+      {isLoading && <Loading />}
       {isSucessMessage && (
         <ModalSucess
           message={isSucessMessage}
