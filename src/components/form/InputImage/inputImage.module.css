@@ -10,7 +10,7 @@
   display: none;
 }
 
-.image > p {
+.image>p {
   color: var(--Neutral-Colors-Neutral-110, #515255);
   font-size: 16px;
   font-style: normal;
