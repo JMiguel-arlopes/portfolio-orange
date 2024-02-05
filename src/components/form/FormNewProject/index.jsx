@@ -1,4 +1,3 @@
-import { useState } from "react";
 import styles from "./formnewproject.module.css";
 import Input from "../Input";
 
@@ -10,6 +9,7 @@ const FormNewProject = ({ handleChange, formData }) => {
         name="title"
         value={formData.title}
         handleOnChange={handleChange}
+        maxLength={48}
         required
       />
 
@@ -18,6 +18,7 @@ const FormNewProject = ({ handleChange, formData }) => {
         name="tags"
         type="text"
         value={formData.tags}
+        maxLength={18}
         handleOnChange={handleChange}
         required
       />
@@ -27,6 +28,7 @@ const FormNewProject = ({ handleChange, formData }) => {
         name="link"
         type="text"
         value={formData.link}
+        maxLength={128}
         handleOnChange={handleChange}
         required
       />
@@ -37,6 +39,7 @@ const FormNewProject = ({ handleChange, formData }) => {
         value={formData.description}
         onChange={handleChange}
         rows="4"
+        maxLength={3000}
         required
       ></textarea>
     </div>

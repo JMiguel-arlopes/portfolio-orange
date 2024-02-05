@@ -10,12 +10,13 @@ import styles from "./login.module.css";
 export default function Login() {
   let navigate = useNavigate();
   const [dataInput, setDataInput] = useState({});
+  const [isDisabledSubmit, setDisabledSubmit] = useState(false);
   const [notificationError, setNotificationError] = useState("");
 
   const singIn = async () => {
     const BASE_URL = "https://hackaton-orange-app-backend.onrender.com";
     const endPoint = `${BASE_URL}/api/users/authenticate`;
-
+    setDisabledSubmit(true);
     try {
       await axios
         .post(endPoint, {
@@ -28,38 +29,20 @@ export default function Login() {
           navigate("/home");
         });
     } catch (err) {
-      setDataInput({});
       if (err.response.status === 401 || err.response.status === 404) {
         setNotificationError("Usuário ou Senha não encontrados!");
       }
-      console.log(err);
+      console.error(err);
+    } finally {
+      setDataInput({});
+      setDisabledSubmit(false);
     }
-    // await axios
-    //   .get("http://localhost:8080/users")
-    //   .then((resp) => {
-    //     const users = resp.data;
-
-    //     users.forEach((user) => {
-    //       const email = user.email;
-    //       const password = user.password;
-
-    //       if (email === dataInput.email && password === dataInput.password) {
-    //         // setLoggedUser(user);
-    //         return navigate(`/home/${user.id}`);
-    //       }
-    //     });
-    //   })
-    //   .then(() => {
-    //     toggleNotification();
-    //     setDataInput({});
-    //   })
-    //   .catch((error) => console.error("Usuário não encontrado: ", error));
   };
 
   const handleChange = (e) => {
     const { name, value, maxLength } = e.target;
-    const newValue = e.target.value.slice(0, maxLength);
-    setDataInput({ ...dataInput, [name]: value });
+    const newValue = value.slice(0, maxLength);
+    setDataInput({ ...dataInput, [name]: newValue });
   };
 
   const toggleNotification = () => {
@@ -82,6 +65,7 @@ export default function Login() {
           handleSubmit={singIn}
           handleOnChange={handleChange}
           dataInput={dataInput}
+          isDisabledSubmit={isDisabledSubmit}
         />
       </div>
     </section>

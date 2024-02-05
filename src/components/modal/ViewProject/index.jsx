@@ -1,5 +1,4 @@
 import styles from "./viewProject.module.css";
-import { useContext } from "react";
 import MiniatureProfile from "../../layoult/MiniatureProfile";
 import Tag from "../../layoult/Tag";
 import ContainerModal from "../ContainerModal";
@@ -19,34 +18,59 @@ export default function ViewProject({
 }) {
   const outModal = "outmodal";
 
+  const openLink = () => {
+    if (link.startsWith("http://") || link.startsWith("https://")) {
+      return link;
+    } else {
+      return "http://" + link;
+    }
+  };
+
   const disabledModal = (e) => {
     if (e.target.id === outModal) {
       handleOnClick();
     }
   };
 
+  const finalLink = openLink();
+
   return (
-    <ContainerModal id={outModal} handleOnCLick={disabledModal}>
+    <ContainerModal
+      id={outModal}
+      handleOnCLick={disabledModal}
+      bottomMobile={true}
+    >
       <div className={styles.modal_view_project}>
         <div className={styles.close} onClick={handleOnClick}>
           <IoClose size={24} />
         </div>
-        <div className={styles.row_information}>
-          <MiniatureProfile name={name} />
-          <h2>{title}</h2>
-          <div className={styles.tags}>
-            {tags.map((tag, index) => {
-              return <Tag text={tag} key={index} />;
-            })}
+
+        <div className={styles.column_information_image}>
+          <div className={styles.row_information}>
+            <MiniatureProfile name={name} />
+            <h2 className={styles.visibleDesktop}>{title}</h2>
+            <div className={styles.tags}>
+              {tags.map((tag, index) => {
+                return <Tag text={tag} key={index} />;
+              })}
+            </div>
           </div>
+          <div className={styles.image_project}>
+            <img src={imgBackground || img_bg} alt="image project" />
+          </div>
+          <h2 className={styles.visibleMobile}>{title}</h2>
         </div>
-        <div className={styles.image_project}>
-          <img src={imgBackground || img_bg} alt="image project" />
-        </div>
+
         <div className={styles.general_description}>
           <p>{description}</p>
-          <h5>Download</h5>
-          <a href={link}>{link}</a>
+          {link && (
+            <>
+              <h5>Download</h5>
+              <a href={finalLink} target="_blank">
+                {finalLink}
+              </a>
+            </>
+          )}
         </div>
       </div>
     </ContainerModal>

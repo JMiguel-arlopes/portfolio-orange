@@ -11,3 +11,9 @@
   overflow-y: hidden;
   z-index: 100;
 }
+
+@media screen and (max-width: 768px) {
+  .container_set_project_modal.bottom {
+    align-items: flex-end;
+  }
+}

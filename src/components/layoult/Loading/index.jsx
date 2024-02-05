@@ -1,5 +1,10 @@
+import ContainerModal from "../../modal/ContainerModal";
 import styles from "./loading.module.css";
 
 export default function Loading() {
-  return <span ClassName={styles.loader}></span>;
+  return (
+    <ContainerModal>
+      <span className={styles.loader}></span>
+    </ContainerModal>
+  );
 }

@@ -8,10 +8,29 @@
   justify-content: center;
 }
 
+.sign_in {
+  width: 100%;
+  padding: 0.5em 0;
+  display: flex;
+  align-items: center;
+}
+
+.sign_in svg {
+  font-size: 18px;
+  vertical-align: bottom;
+  margin-right: 4px;
+}
+
+.sign_in > a {
+  color: var(--neutral-color-weak);
+  font-size: 16px;
+  text-align: left;
+  text-decoration: none;
+  letter-spacing: 0.15px;
+}
 
 @media (max-width: 768px) {
   .container_form_register {
     width: 312px;
-
   }
 }

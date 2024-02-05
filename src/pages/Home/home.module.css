@@ -29,10 +29,18 @@
   gap: 2rem;
 }
 
-.skeleton {
-  border-radius: 4px;
-  width: 450px;
-  height: 258px;
-  flex-shrink: 0;
-  background-color: cyan;
+@media screen and (max-width: 768px) {
+  .container_home {
+    padding: 2rem 1.25rem;
+    max-width: 100vw;
+  }
+
+  .content_profile {
+    padding: 1rem;
+    padding-bottom: 2.5rem;
+  }
+
+  .content_projects {
+    max-width: 100vw;
+  }
 }
