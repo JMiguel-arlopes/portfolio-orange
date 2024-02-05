@@ -10,7 +10,7 @@
   display: none;
 }
 
-.image > p {
+.image>p {
   color: var(--Neutral-Colors-Neutral-110, #515255);
   font-size: 16px;
   font-style: normal;
@@ -27,7 +27,7 @@
   width: 389px;
   height: 304px;
   background: var(--Neutral-Colors-Neutral-70, #e6e9f2);
-  display: flex;
+  display: block;
   flex-direction: column;
   justify-content: center;
   align-items: center;

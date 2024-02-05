@@ -7,6 +7,7 @@ import ContainerModal from "../ContainerModal";
 import ViewProject from "../ViewProject";
 import styles from "./setProjectModal.module.css";
 export default function SetProjectModal({
+  imageData,
   toggleModal,
   handleSubmit,
   initialData,
@@ -16,8 +17,7 @@ export default function SetProjectModal({
   const outModal = "outmodal";
   const [formData, setFormData] = useState(initialData || {});
   const [view, setView] = useState(false);
-  const [ImageToUpload, setImageToUpload] = useState("");
-  const [selectedFile, setSelectedFile] = useState();
+  const [selectedFile, setSelectedFile] = useState(imageData);
 
   console.log(initialData);
   const toggleView = () => {

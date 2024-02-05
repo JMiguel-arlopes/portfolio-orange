@@ -12,7 +12,6 @@ import ModalSucess from "../../components/modal/ModalSucess";
 import SetProjectModal from "../../components/modal/SetProjectModal";
 
 import { useNavigate } from "react-router-dom";
-import img_project from "../../assets/img_projeto.png";
 import img_profile from "../../assets/perfil.png";
 import { UserContext } from "../../context/UserContext";
 
@@ -30,7 +29,6 @@ export default function Home() {
 
   // requisições
   const BASE_URL = "https://hackaton-orange-app-backend.onrender.com";
-
   const dataUser = async () => {
     const endPoint = `${BASE_URL}/api/users`;
 
@@ -81,13 +79,13 @@ export default function Home() {
     setModalAddProject(!modalAddProject);
   };
 
-  const addProject = async (project) => {
+  const addProject = (project) => {
     const endPoint = `${BASE_URL}/projects/create`;
 
     const newProject = { ...project };
     newProject.tags = newProject.tags.split(/[,\s;\/-]+/);
 
-    await axios
+    axios
       .post(endPoint, newProject, {
         headers: {
           Authorization: localStorage.getItem("token"),
@@ -179,7 +177,7 @@ export default function Home() {
                   key={project.id}
                   dataProject={project}
                   name={currentUser.name}
-                  imgBackground={img_project}
+                  imgBackground={project.photo}
                   imgUser={img_profile}
                   title={project.title}
                   tags={project.tags}
