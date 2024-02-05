@@ -1,24 +1,67 @@
 .loader {
-  width: 48px;
-  height: 48px;
-  background: #fff;
+  animation: rotate 1s infinite;
+  height: 100px;
+  width: 100px;
+}
+
+.loader:before,
+.loader:after {
   border-radius: 50%;
-  position: relative;
-  animation: roll 1s ease-in-out infinite alternate;
+  content: "";
+  display: block;
+  height: 40px;
+  width: 40px;
+}
+.loader:before {
+  animation: ball1 1s infinite;
+  background-color: #fff;
+  box-shadow: 60px 0 0 var(--orange);
+  margin-bottom: 20px;
 }
 .loader:after {
-  content: "";
-  position: absolute;
-  inset: 5px;
-  border-radius: 50%;
-  border: 5px solid;
-  border-color: #ff3d00 transparent;
+  animation: ball2 1s infinite;
+  background-color: var(--orange);
+  box-shadow: 60px 0 0 #fff;
 }
-@keyframes roll {
+
+@keyframes rotate {
   0% {
-    transform: translateX(-150%) rotate(0deg);
+    transform: rotate(0deg) scale(0.8);
+  }
+  50% {
+    transform: rotate(360deg) scale(1.2);
   }
   100% {
-    transform: translateX(150%) rotate(360deg);
+    transform: rotate(720deg) scale(0.8);
+  }
+}
+
+@keyframes ball1 {
+  0% {
+    box-shadow: 60px 0 0 var(--orange);
+  }
+  50% {
+    box-shadow: 0 0 0 var(--orange);
+    margin-bottom: 0;
+    transform: translate(30px, 30px);
+  }
+  100% {
+    box-shadow: 60px 0 0 var(--orange);
+    margin-bottom: 20px;
+  }
+}
+
+@keyframes ball2 {
+  0% {
+    box-shadow: 60px 0 0 #fff;
+  }
+  50% {
+    box-shadow: 0 0 0 #fff;
+    margin-top: -40px;
+    transform: translate(30px, 30px);
+  }
+  100% {
+    box-shadow: 60px 0 0 #fff;
+    margin-top: 0;
   }
 }

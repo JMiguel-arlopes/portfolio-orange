@@ -10,5 +10,6 @@
 @media (max-width: 768px) {
   .row_username {
     flex-direction: column;
+    gap: 0;
   }
 }

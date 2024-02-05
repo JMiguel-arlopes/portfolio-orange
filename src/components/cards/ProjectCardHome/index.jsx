@@ -10,7 +10,6 @@ import styles from "./projectCard.module.css";
 
 export default function ProjectCardHome({
   dataProject,
-  id,
   name,
   imgBackground,
   imgUser,

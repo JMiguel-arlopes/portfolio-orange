@@ -12,42 +12,36 @@ export default function Register() {
   const BASE_URL = "https://hackaton-orange-app-backend.onrender.com";
   const endPoint = `${BASE_URL}/api/users/register`;
   const [newUser, setNewUser] = useState({});
-  const [textSubmit, setTextSubmit] = useState("Cadastrar");
   const [notificationSucess, setNotificationSucess] = useState(false);
   const [notificationError, setNotificationError] = useState("");
   const [isDisabledSubmit, setDisabledSubmit] = useState(false);
 
   const signUp = async () => {
-    setTextSubmit("Aguarde...");
     setDisabledSubmit(true);
     joinName();
 
-    createUser();
-    try {
-      await axios.post(endPoint, newUser).then((resp) => {
-        console.log(resp.data);
+    newUser.projects = [];
+
+    await axios
+      .post(endPoint, newUser)
+      .then(() => {
         setNotificationSucess(true);
         setTimeout(() => {
-          setTextSubmit("Cadastrar");
           navigate("/login");
         }, 100);
+      })
+      .catch((err) => {
+        const { status } = err.response;
+        if (status == 400) {
+          setNotificationError("Essa conta já foi criada!");
+        } else {
+          setNotificationError(err.message);
+        }
+      })
+      .finally(() => {
+        setNewUser({});
+        setDisabledSubmit(false);
       });
-    } catch (err) {
-      const { status } = err.response;
-      if (status == 400) {
-        setNotificationError("Essa conta já foi criada!");
-      } else {
-        setNotificationError(err.message);
-      }
-    } finally {
-      setNewUser({});
-      setDisabledSubmit(false);
-      setTextSubmit("Cadastrar");
-    }
-  };
-
-  const createUser = async () => {
-    newUser.projects = [];
   };
 
   const joinName = () => {
@@ -59,9 +53,7 @@ export default function Register() {
 
   const handleChangeText = (e) => {
     const { name, value, maxLength } = e.target;
-
     const newValue = value.slice(0, maxLength);
-    // const
     setNewUser({ ...newUser, [name]: newValue });
   };
 
@@ -96,7 +88,7 @@ export default function Register() {
           handleSubmit={signUp}
           handleOnChange={handleChangeText}
           dataUser={newUser}
-          textSubmit={textSubmit}
+          textSubmit="Cadastrar"
           disabled={isDisabledSubmit}
         />
       </div>

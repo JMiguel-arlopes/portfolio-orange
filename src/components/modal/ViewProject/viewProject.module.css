@@ -18,6 +18,11 @@
   padding: 5px;
 }
 
+.column_information_image {
+  display: flex;
+  flex-direction: column;
+}
+
 .row_information {
   display: flex;
   flex-direction: row;
@@ -51,6 +56,10 @@
   margin-bottom: 1.75rem;
 }
 
+.visibleMobile {
+  display: none;
+}
+
 .general_description {
   width: 100%;
 }
@@ -76,10 +85,40 @@
 
 .general_description a {
   color: #608ae1;
+  text-decoration: none;
   font-family: Roboto;
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
   line-height: 14px;
   letter-spacing: 0.25px;
+}
+
+@media screen and (max-width: 768px) {
+  .modal_view_project {
+    height: 90vh;
+    width: 100vw;
+    padding: 3.5rem 1.25rem;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+  }
+
+  .visibleDesktop {
+    display: none;
+  }
+
+  .visibleMobile {
+    display: block;
+    color: var(--neutral-color-strong);
+    text-align: center;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1;
+    margin-bottom: 2rem;
+  }
+
+  .column_information_image {
+    flex-direction: column-reverse;
+  }
 }

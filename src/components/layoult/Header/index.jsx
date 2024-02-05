@@ -4,53 +4,57 @@ import Perfil from "../../../assets/perfil.png";
 import Icon from "../../../assets/icon.svg";
 import Menu from "../../../assets/MenuFilled.svg";
 import { Link } from "react-router-dom";
+import { useState, useContext } from "react";
+import { UserContext } from "../../../context/UserContext";
+import { RxExit } from "react-icons/rx";
 
-export default function Header({ id }) {
-  function openSidebar() {
-    document.getElementById("sidebar").style.display = "block";
-    document.getElementById("menu").style.display = "none";
-    document.getElementById("logo").style.display = "none";
-  }
+export default function Header() {
+  const { loggedUser } = useContext(UserContext);
+  const [isOpen, setOpen] = useState(false);
 
-  function closeSidebar() {
-    document.getElementById("sidebar").style.display = "none";
-    document.getElementById("menu").style.display = "inline";
-    document.getElementById("logo").style.display = "inline";
-  }
+  const toggleMenu = () => {
+    setOpen(!isOpen);
+  };
 
   return (
     <div className={styles.container_header}>
-      <div id="sidebar" className={styles.sidebar}>
-        <div className={styles.menusidebar}>
-          <button onClick={closeSidebar}>FECHAR MENU</button>
-          <Link className={styles.linkssidebar} to={`/home/${id}`}>
-            Meus projetos
-          </Link>
-          <Link className={styles.linkssidebar} to={`/explore/${id}`}>
-            {" "}
-            Descobrir
-          </Link>
-
-          <Link className={styles.linkssidebar} to={"/login"}>
-            Sair
-          </Link>
+      {isOpen && (
+        <div id="sidebar" className={styles.sidebar}>
+          <div className={styles.information_user}>
+            <h4>{loggedUser.name}</h4>
+            <h5>{loggedUser.email}</h5>
+          </div>
+          <div className={styles.menusidebar}>
+            <Link className={styles.linksidebar} to={`/home`}>
+              Meus projetos
+            </Link>
+            <Link className={styles.linksidebar} to={`/explore`}>
+              Descobrir
+            </Link>
+          </div>
+          <div className={styles.exitSideBar}>
+            <RxExit />
+            <Link className={styles.linksidebar} to={"/login"}>
+              Sair
+            </Link>
+          </div>
         </div>
-      </div>
+      )}
 
       <div className={styles.menuLogo}>
         <img
           id="menu"
           src={Menu}
-          onClick={openSidebar}
+          onClick={toggleMenu}
           className={styles.menuList}
         />
         <img id="logo" src={Logo} />
 
         <div className={styles.menu}>
-          <Link className={styles.links} to={`/home/${id}`}>
+          <Link className={styles.link} to={`/home`}>
             Meus projetos
           </Link>
-          <Link className={styles.links} to={`/explore/${id}`}>
+          <Link className={styles.link} to={`/explore`}>
             {" "}
             Descobrir
           </Link>
@@ -60,7 +64,7 @@ export default function Header({ id }) {
       <div className={styles.perfil}>
         <div className={styles.subnav}>
           <img className={styles.perfilImg} src={Perfil} />
-          <Link className={styles.sair} to={"/login"}>
+          <Link className={styles.exit} to={"/login"}>
             Sair
           </Link>
         </div>
