@@ -1,42 +1,51 @@
 import styles from "./explore.module.css";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import Header from "../../components/layoult/Header";
 import ContainerProjects from "../../components/layoult/ContainerProjects";
 import ProjectCardExplore from "../../components/cards/ProjectCardExplore";
 import img_project from "../../assets/img_projeto.png";
 import img_profile from "../../assets/perfil.png";
 import Input from "../../components/form/Input";
-import { useParams } from "react-router-dom";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { UserContext } from "../../context/UserContext";
 
 export default function Explore() {
-  const { id } = useParams();
-  const url = `http://localhost:8080/users`;
-
-  const [allUsers, setAllUsers] = useState([]);
+  let navigate = useNavigate();
+  const { loggedUser } = useContext(UserContext);
   const [currentProjects, setCurrentProjects] = useState([]);
   const [visibleProjects, setVisibleProjects] = useState([]);
+  const BASE_URL = "https://hackaton-orange-app-backend.onrender.com";
+
+  const getProjects = async () => {
+    const endPoint = `${BASE_URL}/projects/all`;
+    await axios
+      .get(endPoint, {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      })
+      .then((resp) => {
+        const allProjects = resp.data;
+        const projectsUser = loggedUser.projects;
+        let filteredProjects = allProjects.filter(
+          (project) => !projectsUser.includes(project)
+        );
+        setVisibleProjects(filteredProjects);
+      })
+      .catch((err) => {
+        // const { status } = err.response;
+        // if (status === 401 || status === 403) {
+        // coloca notification em login
+        // navigate("/login");
+        console.error(err);
+        // }
+        // coloca notification de erro aqui em response
+      });
+  };
 
   useEffect(() => {
-    const dataUser = async () => {
-      await axios
-        .get(url)
-        .then((response) => {
-          const users = response.data;
-          const otherUsers = users.filter((user) => user.id !== id);
-
-          const projects = otherUsers
-            .map((user) => user.projects)
-            .flat(Infinity);
-
-          setAllUsers(otherUsers);
-          setCurrentProjects(projects);
-          setVisibleProjects(projects);
-        })
-        .catch((err) => console.error(err));
-    };
-
-    dataUser();
+    getProjects();
   }, []);
 
   const filterProjectsByTag = (e) => {
@@ -52,7 +61,7 @@ export default function Explore() {
 
   return (
     <div>
-      <Header id={id} />
+      <Header />
       <section className={styles.container_home}>
         <div className={styles.text}>
           <h1>
@@ -70,15 +79,11 @@ export default function Explore() {
         <ContainerProjects>
           {currentProjects.length > 0 ? (
             visibleProjects.map((project) => {
-              const user = allUsers.find((u) =>
-                u.projects.some((p) => p === project)
-              );
-
               return (
                 <ProjectCardExplore
-                  name={user.firstName + " " + user.lastName}
+                  name={project.user.name}
                   imgBackground={img_project}
-                  imgUser={img_profile}
+                  imgUser={project.user.photo || img_profile}
                   tags={project.tags}
                   title={project.title}
                   link={project.link}
