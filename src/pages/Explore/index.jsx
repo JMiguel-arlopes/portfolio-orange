@@ -1,14 +1,13 @@
-import styles from "./explore.module.css";
-import { useState, useEffect, useContext } from "react";
-import Header from "../../components/layoult/Header";
-import ContainerProjects from "../../components/layoult/ContainerProjects";
-import ProjectCardExplore from "../../components/cards/ProjectCardExplore";
-import img_project from "../../assets/img_projeto.png";
-import img_profile from "../../assets/perfil.png";
-import Input from "../../components/form/Input";
 import axios from "axios";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import img_profile from "../../assets/perfil.png";
+import ProjectCardExplore from "../../components/cards/ProjectCardExplore";
+import Input from "../../components/form/Input";
+import ContainerProjects from "../../components/layoult/ContainerProjects";
+import Header from "../../components/layoult/Header";
 import { UserContext } from "../../context/UserContext";
+import styles from "./explore.module.css";
 
 export default function Explore() {
   let navigate = useNavigate();
@@ -27,11 +26,8 @@ export default function Explore() {
       })
       .then((resp) => {
         const allProjects = resp.data;
-        const projectsUser = loggedUser.projects;
-        let filteredProjects = allProjects.filter(
-          (project) => !projectsUser.includes(project)
-        );
-        setVisibleProjects(filteredProjects);
+        setCurrentProjects(allProjects);
+        setVisibleProjects(allProjects);
       })
       .catch((err) => {
         // const { status } = err.response;
@@ -82,7 +78,7 @@ export default function Explore() {
               return (
                 <ProjectCardExplore
                   name={project.user.name}
-                  imgBackground={img_project}
+                  imgBackground={project.photo}
                   imgUser={project.user.photo || img_profile}
                   tags={project.tags}
                   title={project.title}
