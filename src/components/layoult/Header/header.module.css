@@ -5,6 +5,74 @@
   height: 73px;
   padding: 16px 30px;
   justify-content: space-between;
+  position: relative;
+}
+
+.sidebar {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  animation: sidebar-slide 0.25s linear;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 250px;
+  max-width: 80vw;
+  border-radius: 4px;
+  box-shadow: 0 0 10px #000;
+}
+
+.menusidebar {
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem 1.25rem 1rem 1.25rem;
+  border-bottom: 2px solid var(--neutral-color-weak);
+}
+
+.information_user {
+  padding: 1.5rem 1.25rem;
+  border-bottom: 2px solid var(--neutral-color-weak);
+}
+
+.information_user h4 {
+  color: #111133;
+  font-size: 18px;
+  font-weight: 400;
+}
+
+.information_user h5 {
+  color: var(--neutral-color);
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.linksidebar {
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 1;
+  text-decoration: none;
+  width: 100%;
+  color: #111133;
+}
+
+.linksidebar:not(.linksidebar:last-child) {
+  margin-bottom: 1rem;
+}
+
+.exitSideBar {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 1rem 1.25rem;
+}
+
+.exitSideBar svg {
+  font-size: 24px;
+  color: var(--neutral-color);
+  margin-right: 0.5rem;
 }
 
 .menuLogo {
@@ -23,7 +91,7 @@
   gap: 24px;
 }
 
-.links {
+.link {
   font-size: 20px;
   font-style: normal;
   font-weight: 500;
@@ -31,6 +99,14 @@
   width: 130px;
   text-decoration: none;
   color: white;
+  transition: 0.25s;
+  text-align: center;
+}
+
+.link:hover {
+  color: var(--orange);
+  border-bottom: 1px solid var(--orange);
+  padding-bottom: 0.25em;
 }
 
 .perfil {
@@ -56,7 +132,7 @@
   align-items: center;
 }
 
-.sair {
+.exit {
   text-decoration: none;
   color: var(--Color-Brand-Primria-Primary-90, #224);
   background-color: rgb(255, 255, 255);
@@ -66,56 +142,27 @@
   text-align: center;
   width: 100px;
   border: var(--border);
+  transition: 0.25s;
 }
 
-.sair:hover {
+.exit:hover {
   background-color: #ff5522;
   color: white;
 }
 
-.subnav:hover .sair {
+.subnav:hover .exit {
   display: inline;
 }
 
-.sidebar{
-    display: none;
-    margin: -16px -30px;
+@keyframes sidebar-slide {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
 }
 
-.menusidebar {
-  background-color: white;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  padding: 32px;
-  height: 100vh;
-}
-
-.linkssidebar {
-  font-size: 20px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 20px;
-  width: 130px;
-  text-decoration: none;
-  color: #111133;
-}
-
-.sidebar .menusidebar button{
-    padding: 8px;
-    margin-top: -32px;
-    margin-left: -32px;
-    margin-right: -32px;
-    font-size: 'Roboto';
-    border: 0;
-    color: #ff5522;
-    font-weight: 700;
-}
-
-
-.sidebar .menusidebar button:hover{
-    background-color:#E0E0E0 ;
-}
 @media (max-width: 768px) {
   .menuList {
     display: inline;
@@ -123,11 +170,16 @@
     margin: 8px;
   }
 
+  .sidebar {
+    left: 0;
+    display: inline-block;
+  }
+
   .menu {
     display: none;
   }
 
-  .subnav:hover .sair {
+  .subnav:hover .exit {
     display: none;
   }
 
