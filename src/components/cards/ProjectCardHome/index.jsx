@@ -8,7 +8,6 @@ import DeleteModal from "../../modal/DeleteModal";
 
 export default function ProjectCardHome({
   dataProject,
-  id,
   name,
   imgBackground,
   imgUser,
