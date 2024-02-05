@@ -2,6 +2,7 @@ import axios from "axios";
 import { useContext, useState } from "react";
 import { UserContext } from "../../../context/UserContext";
 import FormNewProject from "../../form/FormNewProject";
+import InputImage from "../../form/InputImage";
 import ContainerModal from "../ContainerModal";
 import ViewProject from "../ViewProject";
 import styles from "./setProjectModal.module.css";
@@ -16,6 +17,7 @@ export default function SetProjectModal({
   const [formData, setFormData] = useState(initialData || {});
   const [view, setView] = useState(false);
   const [ImageToUpload, setImageToUpload] = useState("");
+  const [selectedFile, setSelectedFile] = useState();
 
   console.log(initialData);
   const toggleView = () => {
@@ -37,7 +39,8 @@ export default function SetProjectModal({
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    const imageName = selectedFile.name;
+    setFormData({ ...formData, [name]: value, "photo": imageName });
   };
   console.log(formData);
 
@@ -55,7 +58,7 @@ export default function SetProjectModal({
   const createProject = (e) => {
     e.preventDefault();
 
-    handleSubmit();
+    handleSubmit(formData);
     UploadImage()
     toggleModal();
   };
@@ -97,10 +100,9 @@ export default function SetProjectModal({
               /> */}
 
             <div className={styles.container}>
-              <input
-                type="file"
-                name='file'
-                onChange={HandleFileChange}
+              <InputImage
+                dataImage={selectedFile}
+                handleUpload={HandleFileChange}
               />
 
 
