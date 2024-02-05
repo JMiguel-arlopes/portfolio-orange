@@ -4,7 +4,12 @@ import InputsEmailPassword from "../InputsEmailPassword";
 import Submit from "../Submit";
 import { Link } from "react-router-dom";
 
-export default function FormLogin({ handleSubmit, handleOnChange, dataInput }) {
+export default function FormLogin({
+  handleSubmit,
+  handleOnChange,
+  dataInput,
+  isDisabledSubmit,
+}) {
   const submit = (e) => {
     e.preventDefault();
     handleSubmit();
@@ -18,7 +23,7 @@ export default function FormLogin({ handleSubmit, handleOnChange, dataInput }) {
       </a>
       <h3>Faça login com email</h3>
       <InputsEmailPassword handleOnChange={handleOnChange} user={dataInput} />
-      <Submit textSubmit="entrar" />
+      <Submit textSubmit="entrar" disabled={isDisabledSubmit} />
       <div className={styles.sign_up}>
         <Link to={"/register"}>Cadastre-se</Link>
       </div>
