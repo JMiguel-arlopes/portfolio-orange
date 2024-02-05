@@ -55,32 +55,34 @@ export default function ProjectCardHome({
       return;
     }
 
-    await axios.get(
-      'https://hackaton-orange-app-backend.onrender.com/image/' + `${imgBackground}`,
-      {
-        headers: {
-          'Authorization': `${token}`
-        },
-        responseType: 'blob'
-      }
-    ).then((response) => {
-      if (response) {
-        const file = new Blob([response.data], { type: 'image/png' });
-        console.log(file.size);
-        var image = URL.createObjectURL(file);
-        setImgData(image);
+    await axios
+      .get(
+        "https://hackaton-orange-app-backend.onrender.com/image/" +
+          `${imgBackground}`,
+        {
+          headers: {
+            Authorization: `${token}`,
+          },
+          responseType: "blob",
+        }
+      )
+      .then((response) => {
+        if (response) {
+          const file = new Blob([response.data], { type: "image/png" });
+          var image = URL.createObjectURL(file);
+          setImgData(image);
+          return;
+        }
+      })
+      .catch((err) => {
+        setImgData(img_project);
         return;
-      }
-    }).catch((err) => {
-      setImgData(img_project);
-      return;
-    });
-  }
+      });
+  };
 
   useEffect(() => {
     DownloadImage();
-  }, [imgBackground])
-
+  }, [imgBackground]);
 
   return (
     <>

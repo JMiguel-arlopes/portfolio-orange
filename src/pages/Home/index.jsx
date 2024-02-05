@@ -14,7 +14,6 @@ import SetProjectModal from "../../components/modal/SetProjectModal";
 import { useNavigate } from "react-router-dom";
 import img_profile from "../../assets/perfil.png";
 import { UserContext } from "../../context/UserContext";
-import { useNavigate } from "react-router-dom";
 import Loading from "../../components/layoult/Loading";
 
 export default function Home() {
