@@ -1,38 +1,11 @@
 # Portfólio Orange
 
 ## Como Iniciar
-
-Para iniciar a aplicação, siga os passos abaixo:
-
-1. Abra o terminal.
-2. Navegue até o diretório do projeto:
-
-   ```bash
-   cd portfolio-orange/
-   npm start
-   ```
-
-   Isso iniciará a aplicação e abrirá a interface no seu navegador padrão.
-
-## Layouts
-
-Alguns dos principais layouts, até o momento, é:
-
-#### Tela de Login:
-
-Vá até a URL e digite:
-
-```bash
-   localhost:3000/login
-```
+Aplicação no Vercel: [Link da aplicação](https://portfolio-orange.vercel.app)
 
 #### Tela de Cadastro:
-
-Vá até a URL e digite:
-
-```bash
-   localhost:3000/register
-```
+- insira nome, sobrenome, email e senha.
+- a senha deve conter, no mínimo, 8 caracteres.
 
 ## Bibliotecas Utilizadas
 
@@ -40,5 +13,11 @@ O projeto faz uso de algumas bibliotecas importantes para aprimorar a experiênc
 
 [React-Router-Dom](https://reactrouter.com/en/main): Utilizado para a navegação entre as páginas do portfólio.
 [React-Icons](https://react-icons.github.io/react-icons/): Fornece uma vasta coleção de ícones para melhorar a estética e a usabilidade.
+[Axios](https://axios-http.com/ptbr/docs/intro): Fornece serviços de requisições.
+
+## Avisos e possíveis erros
+- a primeira requisição no período de 1h é bastante demorada. deixe agir e depois reinicie a página. Essa instabilidade é devido ao serviço do Render gratuito.
+- autentificação com Google ainda incompleta.
+- algumas requisições dão erro 400 quando há imagens repetidas.
 
 Nota: Certifique-se de ter o Node.js e o npm instalados em seu sistema antes de iniciar o projeto.
