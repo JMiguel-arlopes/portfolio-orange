@@ -1,5 +1,6 @@
 .container_home {
   padding: 2rem;
+  position: relative;
 }
 
 .text > h1 {

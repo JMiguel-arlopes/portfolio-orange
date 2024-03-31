@@ -8,15 +8,19 @@ import ContainerProjects from "../../components/layoult/ContainerProjects";
 import Header from "../../components/layoult/Header";
 import { UserContext } from "../../context/UserContext";
 import styles from "./explore.module.css";
+import Loading from "../../components/layoult/Loading";
 
 export default function Explore() {
   let navigate = useNavigate();
   const { loggedUser } = useContext(UserContext);
   const [currentProjects, setCurrentProjects] = useState([]);
   const [visibleProjects, setVisibleProjects] = useState([]);
+  const [isLoading, setLoading] = useState(false);
+
   const BASE_URL = "https://hackaton-orange-app-backend.onrender.com";
 
   const getProjects = async () => {
+    setLoading(true);
     const endPoint = `${BASE_URL}/projects/all`;
     await axios
       .get(endPoint, {
@@ -37,6 +41,8 @@ export default function Explore() {
         console.error(err);
         // }
         // coloca notification de erro aqui em response
+      }).finally(() => {
+        setLoading(false);
       });
   };
 
@@ -91,6 +97,7 @@ export default function Explore() {
             <h3>Sem Projetos de outros usuários, no momento..</h3>
           )}
         </ContainerProjects>
+        {isLoading && <Loading/>}
       </section>
     </div>
   );
